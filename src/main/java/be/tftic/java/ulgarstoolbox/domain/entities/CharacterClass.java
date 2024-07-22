@@ -33,7 +33,7 @@ public class CharacterClass {
 
     @Size(max = 15)
     @Column(name = "caracteristiqueLanceurSort", length = 15)
-    private String spellCasterCharacteristic;
+    private String spellCasterAbility;
 
     @NotNull
     @ColumnDefault("0")
