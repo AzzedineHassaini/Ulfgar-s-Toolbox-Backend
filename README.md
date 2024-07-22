@@ -133,7 +133,7 @@ Project Link: [https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend](htt
 [issues-shield]: https://img.shields.io/github/issues/AzzedineHassaini/Ulfgar-s-Toolbox-Backend.svg?style=for-the-badge
 [issues-url]: https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend/issues
 [license-shield]: https://img.shields.io/github/license/AzzedineHassaini/Ulfgar-s-Toolbox-Backend.svg?style=for-the-badge
-[license-url]: https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend/blob/master/LICENSE.txt
+[license-url]: https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/azzedinehassaini/
 [product-screenshot]: images/screenshot.png
