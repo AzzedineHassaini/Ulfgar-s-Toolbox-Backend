@@ -97,6 +97,7 @@
    ```
 2. Create an application.yml file based on application.yml.example
 3. Fill the application.yml file
+4. Run the SQL scripts located in the data-init folder
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
