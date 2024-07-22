@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>be.tftic.java</groupId>
-    <artifactId>Ulgars-toolbox</artifactId>
+    <artifactId>Ulfgars-toolbox</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Ulgars-toolbox</name>
     <description>Ulgars-toolbox</description>
