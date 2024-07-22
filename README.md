@@ -96,7 +96,8 @@
    git clone https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend.git
    ```
 2. Create an application.yml file based on application.yml.example
-3. Fill the application.yml file
+3. Fill the application.yml file with your DB name, your DB connection information,...
+4. Run the SQL scripts located in the data-init folder
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
