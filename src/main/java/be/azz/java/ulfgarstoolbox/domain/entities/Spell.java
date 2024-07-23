@@ -27,7 +27,7 @@ public class Spell {
     private String school;
 
     @Size(max = 255)
-    @Column(name = "complementEcole")
+    @Column(name = "complement_ecole")
     private String schoolComplement;
 
     @Column(name = "description",columnDefinition = "TEXT")
@@ -39,7 +39,7 @@ public class Spell {
     @Column(name = "composantes")
     private String components;
 
-    @Column(name = "tempsIncantation")
+    @Column(name = "temps_incantation")
     private String castingTime;
 
     @Column(name = "portee")
@@ -51,7 +51,7 @@ public class Spell {
     @Column(name = "duree")
     private String duration;
 
-    @Column(name = "resistanceMagie")
+    @Column(name = "resistance_magie")
     private String magicResistance;
 
     @Column(name = "cibles")
