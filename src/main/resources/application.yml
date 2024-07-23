@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: ${DATABASE_DRIVER}
+  jpa:
+    hibernate:
+      ddl-auto: ${DATABASE_DDL_AUTO}
+    show-sql: ${DATABASE_SHOW_SQL}
+    properties:
+      hibernate:
+        format_sql: ${DATABASE_FORMAT_SQL}
+server:
+  port: ${SERVER_PORT}
+
+jwt:
+  algorithm: ${JWT_ALGORITHM}
+  secret: ${JWT_SECRET}
+  expireAt: ${JWT_EXPIRE_AT}
+
+angular:
+  cors:
+    allowed-origins: ${ANGULAR_ALLOWED_ORIGINS}
