@@ -11,7 +11,7 @@ public record RegisterRequest(
         @Email(message = "The email is not valid")
         String email,
 
-        @NotNull(message = "There must be a phone number")
+        @NotNull(message = "There must be a password")
         @Size(min = 8, message = "Password must be 8 characters minimum")
         String password,
 
