@@ -1,4 +1,4 @@
-package be.tftic.java.ulgarstoolbox.domain.entities;
+package be.azz.java.ulfgarstoolbox.domain.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +17,7 @@ public class SpellDomain {
     private Integer id;
 
     @ManyToOne
-    @Column(name = "id_domaine", nullable = false)
+    @JoinColumn(name = "id_domaine", nullable = false)
     private Domain domain;
 
     @NotNull
