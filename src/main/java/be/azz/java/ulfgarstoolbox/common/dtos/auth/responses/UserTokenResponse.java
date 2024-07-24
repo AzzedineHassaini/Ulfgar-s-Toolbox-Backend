@@ -5,7 +5,6 @@ import be.azz.java.ulfgarstoolbox.domain.entities.User;
 
 public record UserTokenResponse(
         UserShortResponse user,
-        String role,
         String accessToken
 
 ) {
@@ -14,9 +13,9 @@ public record UserTokenResponse(
                 new UserShortResponse(
                         user.getId(),
                         user.getEmail(),
-                        user.getPseudo()
+                        user.getPseudo(),
+                        user.getRole().toString()
                 ),
-                user.getRole().toString(),
                 token
         );
     }

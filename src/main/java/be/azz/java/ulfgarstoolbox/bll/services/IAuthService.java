@@ -3,6 +3,7 @@ package be.azz.java.ulfgarstoolbox.bll.services;
 import be.azz.java.ulfgarstoolbox.common.dtos.auth.requests.LoginRequest;
 import be.azz.java.ulfgarstoolbox.common.dtos.auth.requests.RegisterRequest;
 import be.azz.java.ulfgarstoolbox.common.dtos.auth.responses.UserTokenResponse;
+import be.azz.java.ulfgarstoolbox.common.dtos.user.requests.UserUpdateRoleRequest;
 import be.azz.java.ulfgarstoolbox.common.exceptions.auth.InvalidPasswordException;
 import be.azz.java.ulfgarstoolbox.common.exceptions.auth.UserAlreadyExistsException;
 import be.azz.java.ulfgarstoolbox.common.exceptions.auth.UserNotFoundException;
