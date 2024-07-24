@@ -83,6 +83,7 @@
 * [![MySQL][MySQL.com]][MySQL-url]
 * [![Jira][Jira.com]][Jira-url]
 * [![Postman][Postman.com]][Postman-url]
+* [![Draw.io][draw.io]][draw-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -188,4 +189,6 @@ Project Link: [https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend](htt
 [Jira-url]: https://www.jira.com/
 [Postman.com]: https://img.shields.io/badge/Postman-0769AD?style=for-the-badge&logo=Postman&logoColor=white
 [Postman-url]: https://www.postman.com/
+[draw.io]: https://img.shields.io/badge/Draw.io-0769AD?style=for-the-badge&logo=diagramsdotnet&logoColor=white
+[draw-url]: https://app.diagrams.net/
 
