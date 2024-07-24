@@ -1,17 +1,15 @@
 package be.tftic.java.ulgarstoolbox.dal.specifications;
 
-import be.tftic.java.ulgarstoolbox.domain.entities.CharacterClass;
-import be.tftic.java.ulgarstoolbox.domain.entities.Spell;
-import be.tftic.java.ulgarstoolbox.domain.entities.SpellClass;
+import be.tftic.java.ulgarstoolbox.domain.entities.*;
 import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Map;
 
-public interface SpellClassSpecifications {
+public interface SpellSpecifications<T> {
 
-    static Specification<SpellClass> filterByParams(Map<String, String> params) {
-        Specification<SpellClass> specification = Specification.where(null);
+    static <T> Specification<T> filterByParams(Map<String, String> params) {
+        Specification<T> specification = Specification.where(null);
 
         for (Map.Entry<String, String> entry : params.entrySet()) {
             if (!entry.getValue().isBlank()) {
@@ -22,13 +20,18 @@ public interface SpellClassSpecifications {
         return specification;
     }
 
-    static Specification<SpellClass> filterBy(String key, String value) {
+    static <T> Specification<T> filterBy(String key, String value) {
         return (root, query, criteriaBuilder) ->
                 switch (key) {
 
                     case "class" -> {
                         Join<SpellClass, CharacterClass> spellClassJoin = root.join("characterClass");
                         yield criteriaBuilder.like(spellClassJoin.get("name"), "%" + value + "%");
+                    }
+
+                    case "domain" -> {
+                        Join<SpellDomain, Domain> spellDomainJoin = root.join("domain");
+                        yield criteriaBuilder.like(spellDomainJoin.get("name"), "%" + value + "%");
                     }
 
                     case "level" ->
