@@ -1,6 +1,6 @@
-package be.tftic.java.ulgarstoolbox.domain.entities;
+package be.tftic.java.ulfgarstoolbox.domain.entities;
 
-import be.tftic.java.ulgarstoolbox.domain.enums.Ability;
+import be.tftic.java.ulfgarstoolbox.domain.enums.Ability;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

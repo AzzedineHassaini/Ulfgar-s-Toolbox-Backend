@@ -1,4 +1,4 @@
-package be.tftic.java.ulgarstoolbox.common.dtos.spell.responses;
+package be.tftic.java.ulfgarstoolbox.common.dtos.spell.responses;
 
 public record SpellResponse(
         Integer id,

@@ -1,4 +1,4 @@
-package be.tftic.java.ulgarstoolbox.common.dtos.characterClass.responses;
+package be.tftic.java.ulfgarstoolbox.common.dtos.characterClass.responses;
 
 public record CharacterClassResponse(
         Integer id,

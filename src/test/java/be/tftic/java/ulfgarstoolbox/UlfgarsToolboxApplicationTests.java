@@ -1,10 +1,10 @@
-package be.tftic.java.ulgarstoolbox;
+package be.tftic.java.ulfgarstoolbox;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UlgarsToolboxApplicationTests {
+class UlfgarsToolboxApplicationTests {
 
     @Test
     void contextLoads() {

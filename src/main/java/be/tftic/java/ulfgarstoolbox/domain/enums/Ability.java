@@ -1,4 +1,4 @@
-package be.tftic.java.ulgarstoolbox.domain.enums;
+package be.tftic.java.ulfgarstoolbox.domain.enums;
 
 public enum Ability {
 

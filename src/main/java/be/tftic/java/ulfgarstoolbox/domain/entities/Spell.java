@@ -1,4 +1,4 @@
-package be.tftic.java.ulgarstoolbox.domain.entities;
+package be.tftic.java.ulfgarstoolbox.domain.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
