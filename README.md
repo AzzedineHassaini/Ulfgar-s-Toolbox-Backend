@@ -91,12 +91,51 @@
 
 ### Installation
 
-1. Clone the repo
+<b>Clone the repo</b>
    ```sh
    git clone https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend.git
    ```
-2. Create an application.yml file based on application.yml.example
-3. Fill the application.yml file
+<b> Add environment variables in your IDE</b>
+    <br />
+  ⚠️ Make sure to update the variables according to your setup ⚠️
+    <br />
+	In IntelliJ IDEA, you can add environment variables by following these steps:
+
+1. Go to `Run` > `Edit Configurations...`
+2. Click on the `Environment Variables` field
+3. If you don't have any environment variables yet, click on the `Modify options` button
+4. You will see under `Operating System` -> `Environment Variables` click on it
+5. Copy-paste the environment variables there (and possibly update them according to your setup)
+
+Copy-paste the following environment variables in your IDE:
+
+	### Server Configuration ###
+	SERVER_PORT=8080
+	
+	### Database Configuration ###
+	DATABASE_URL=jdbc:mysql://localhost:3066/dnd35
+	DATABASE_USERNAME=root
+	DATABASE_PASSWORD=root
+	DATABASE_DRIVER=com.mysql.cj.jdbc.Driver
+	
+	# This will every time drop and create the database schema
+	DATABASE_DDL_AUTO=update
+	
+	DATABASE_SHOW_SQL=true
+	DATABASE_FORMAT_SQL=true
+	
+	### JWT Configuration ###
+	JWT_ALGORITHM=HmacSHA256
+	
+	# Secret key for JWT that needs to be more than 256 bits (meaning 32 characters or more)
+	JWT_SECRET=AZZ_PROJECT_SECRET_KEY_1234567890
+	
+	# 24 hours expiration time for JWT in milliseconds
+	JWT_EXPIRE_AT=86400000
+	
+	# Front End Cors
+	ANGULAR_ALLOWED_ORIGINS=http://localhost:4200
+ 
 4. Run the SQL scripts located in the data-init folder
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
