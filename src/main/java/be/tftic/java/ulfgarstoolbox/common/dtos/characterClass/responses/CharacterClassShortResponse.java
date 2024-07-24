@@ -1,7 +1,0 @@
-package be.tftic.java.ulfgarstoolbox.common.dtos.characterClass.responses;
-
-public record CharacterClassShortResponse(
-        Integer id,
-        String name
-) {
-}
