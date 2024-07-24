@@ -1,6 +1,6 @@
-package be.tftic.java.ulgarstoolbox.dal.repositories;
+package be.tftic.java.ulfgarstoolbox.dal.repositories;
 
-import be.tftic.java.ulgarstoolbox.domain.entities.Domain;
+import be.tftic.java.ulfgarstoolbox.domain.entities.Domain;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package be.tftic.java.ulgarstoolbox.common.dtos.domain.responses;
+package be.tftic.java.ulfgarstoolbox.common.dtos.domain.responses;
 
 public record DomainResponse(
         Integer id,
