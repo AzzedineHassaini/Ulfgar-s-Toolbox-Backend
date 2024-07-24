@@ -29,29 +29,29 @@ public class CharacterClass {
     private Integer hitDice;
 
     @NotNull
-    @Column(name = "pointsCompetences", nullable = false)
+    @Column(name = "points_competences", nullable = false)
     private Integer skillPoints;
 
     @Size(max = 15)
-    @Column(name = "caracteristiqueLanceurSort", length = 15)
+    @Column(name = "caracteristique_lanceur_sort", length = 15)
     @Enumerated(EnumType.STRING)
     private Ability spellCasterAbility;
 
     @NotNull
     @ColumnDefault("0")
-    @Column(name = "poMinLvl1", nullable = false)
+    @Column(name = "po_min_lvl1", nullable = false)
     private Integer minimumGoldAtCreation;
 
     @NotNull
     @ColumnDefault("0")
-    @Column(name = "poMaxLvl1", nullable = false)
+    @Column(name = "po_max_lvl1", nullable = false)
     private Integer maximumGoldAtCreation;
 
     @Column(name = "description",columnDefinition = "TEXT")
     private String description;
 
     @Size(max = 45)
-    @Column(name = "typeMagie", length = 45)
+    @Column(name = "type_magie", length = 45)
     private String magicType;
 
     @Override

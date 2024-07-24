@@ -18,7 +18,7 @@ public class Domain {
 
     @Size(max = 255)
     @NotNull
-    @Column(name = "domaine", nullable = false)
+    @Column(name = "domaine",unique = true, nullable = false)
     private String name;
 
     @Column(name = "pouvoir",columnDefinition = "TEXT")

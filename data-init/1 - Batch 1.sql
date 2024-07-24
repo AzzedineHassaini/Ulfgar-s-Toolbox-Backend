@@ -1,4 +1,16 @@
 
+DROP TABLE IF EXISTS `user_`;
+CREATE TABLE `user_` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `pseudo` varchar(255) NOT NULL,
+  `role` enum('ADMIN','CONTRIBUTOR','USER') NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UKha67cvlhy4nk1prswl5gj1y0y` (`email`),
+  UNIQUE KEY `UKe5gmkv0er9tfcaijul8uxqfqf` (`pseudo`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 -- { DATA DEFINITION
 
 -- { Structure de la table `classe`
@@ -8,12 +20,12 @@ CREATE TABLE IF NOT EXISTS `classe` (
   `id` int NOT NULL,
   `nom` varchar(45) NOT NULL,
   `dV` int NOT NULL,
-  `pointsCompetences` int NOT NULL,
-  `caracteristiqueLanceurSort` varchar(15) DEFAULT NULL,
-  `poMinLvl1` int NOT NULL DEFAULT '0',
-  `poMaxLvl1` int NOT NULL DEFAULT '0',
+  `points_competences` int NOT NULL,
+  `caracteristique_lanceur_sort` varchar(15) DEFAULT NULL,
+  `po_min_lvl1` int NOT NULL DEFAULT '0',
+  `po_max_lvl1` int NOT NULL DEFAULT '0',
   `description` text,
-  `typeMagie` varchar(45) DEFAULT NULL,
+  `type_magie` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
@@ -27,20 +39,20 @@ CREATE TABLE IF NOT EXISTS `race` (
   `nom` varchar(45) NOT NULL,
   `taille` varchar(3) NOT NULL,
   `vitesse` int NOT NULL,
-  `donsSuppLvl1` int NOT NULL,
-  `compSuppLvl1` int NOT NULL,
-  `compSuppByLvl` int NOT NULL,
-  `idClassePredilection` int NOT NULL,
-  `immuniteSommeil` tinyint NOT NULL,
-  `visionNocturne` int NOT NULL,
-  `visionNoir` int NOT NULL,
-  `modifFor` int NOT NULL DEFAULT '0',
-  `modifDex` int NOT NULL DEFAULT '0',
-  `modifCon` int NOT NULL DEFAULT '0',
-  `modifInt` int NOT NULL DEFAULT '0',
-  `modifSag` int NOT NULL DEFAULT '0',
-  `modifCha` int NOT NULL DEFAULT '0',
-  `nbLanguesSupplementaires` int NOT NULL DEFAULT '0',
+  `dons_supp_lvl1` int NOT NULL,
+  `comp_supp_lvl1` int NOT NULL,
+  `comp_supp_by_lvl` int NOT NULL,
+  `id_classe_predilection` int NOT NULL,
+  `immunite_sommeil` tinyint NOT NULL,
+  `vision_nocturne` int NOT NULL,
+  `vision_noir` int NOT NULL,
+  `modif_for` int NOT NULL DEFAULT '0',
+  `modif_dex` int NOT NULL DEFAULT '0',
+  `modif_con` int NOT NULL DEFAULT '0',
+  `modif_int` int NOT NULL DEFAULT '0',
+  `modif_sag` int NOT NULL DEFAULT '0',
+  `modif_cha` int NOT NULL DEFAULT '0',
+  `nb_langues_supplementaires` int NOT NULL DEFAULT '0',
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
@@ -54,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `dieu` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
   `description` text NOT NULL,
-  `Alignement` varchar(3) NOT NULL,
+  `alignement` varchar(3) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
@@ -91,11 +103,11 @@ DROP TABLE IF EXISTS `age`;
 CREATE TABLE IF NOT EXISTS `age` (
   `id` int NOT NULL AUTO_INCREMENT,
   `race` int NOT NULL,
-  `ageAdulte` int NOT NULL,
-  `ageMur` int NOT NULL,
-  `ageGrand` int NOT NULL,
-  `ageVenerable` int NOT NULL,
-  `ageMaximal` int NOT NULL,
+  `age_adulte` int NOT NULL,
+  `age_mur` int NOT NULL,
+  `age_grand` int NOT NULL,
+  `age_venerable` int NOT NULL,
+  `age_maximal` int NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_age_race` FOREIGN KEY (`race`) REFERENCES `race` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
@@ -108,9 +120,9 @@ DROP TABLE IF EXISTS `charge`;
 CREATE TABLE IF NOT EXISTS `charge` (
   `id` int NOT NULL AUTO_INCREMENT,
   `force` int NOT NULL,
-  `legereMax` float NOT NULL,
-  `intermediaireMax` float NOT NULL,
-  `lourdeMax` float NOT NULL,
+  `legere_max` float NOT NULL,
+  `intermediaire_max` float NOT NULL,
+  `lourde_max` float NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
 
@@ -123,11 +135,11 @@ CREATE TABLE IF NOT EXISTS `competence` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
   `caracteristique` varchar(3) NOT NULL,
-  `malusArmure` tinyint NOT NULL,
-  `formationNecessaire` tinyint NOT NULL,
+  `malus_armure` tinyint NOT NULL,
+  `formation_necessaire` tinyint NOT NULL,
   `description` text,
   `action` text,
-  `nouvelleTentative` text,
+  `nouvelle_tentative` text,
   `special` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4;
@@ -140,16 +152,16 @@ DROP TABLE IF EXISTS `arme`;
 CREATE TABLE IF NOT EXISTS `arme` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type` enum('Arme courante','Arme de guerre','Arme exotique','') NOT NULL DEFAULT 'Arme courante',
-  `sousType` enum('Combat à mains nues','Armes de corps à corps légères','Armes de corps à corps à une main','Armes de corps à corps à deux mains','Armes à distance','') NOT NULL,
+  `sous_type` enum('Combat à mains nues','Armes de corps à corps légères','Armes de corps à corps à une main','Armes de corps à corps à deux mains','Armes à distance','') NOT NULL,
   `nom` varchar(255) NOT NULL,
-  `degatsP` varchar(10) NOT NULL,
-  `degatsM` varchar(10) NOT NULL,
+  `degats_p` varchar(10) NOT NULL,
+  `degats_m` varchar(10) NOT NULL,
   `critique` varchar(15) NOT NULL,
   `portee` int DEFAULT NULL,
   `poids` float DEFAULT NULL,
-  `typeDegats` enum('Perforant','Contondant','Tranchant','Contondant et perforant','Perforant ou tranchant','') NOT NULL DEFAULT 'Contondant',
+  `type_degats` enum('Perforant','Contondant','Tranchant','Contondant et perforant','Perforant ou tranchant','') NOT NULL DEFAULT 'Contondant',
   `prix` float DEFAULT NULL,
-  `forceMin` int DEFAULT NULL,
+  `force_min` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4;
 
@@ -164,9 +176,9 @@ CREATE TABLE IF NOT EXISTS `armure_bouclier` (
   `type` enum('Bouclier','Armure légère','Armure intermédiaire','Armure lourde') NOT NULL,
   `prix` int NOT NULL,
   `bonus` int NOT NULL,
-  `dexMax` int NOT NULL,
-  `malusTests` int NOT NULL,
-  `echecSorts` int NOT NULL,
+  `dex_max` int NOT NULL,
+  `malus_tests` int NOT NULL,
+  `echec_sorts` int NOT NULL,
   `vitesse9` int NOT NULL,
   `vitesse6` int NOT NULL,
   `poids` float NOT NULL,
@@ -183,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `armure_bouclier` (
 
 -- { Déchargement des données de la table `classe`
 
-INSERT INTO `classe` (`id`, `nom`, `dV`, `pointsCompetences`, `caracteristiqueLanceurSort`, `poMinLvl1`, `poMaxLvl1`, `description`, `typeMagie`) VALUES
+INSERT INTO `classe` (`id`, `nom`, `dV`, `points_competences`, `caracteristique_lanceur_sort`, `po_min_lvl1`, `po_max_lvl1`, `description`, `type_magie`) VALUES
 (1, 'Barbare', 12, 4, NULL, 40, 160, 'Pour certains individus, tout n’est que rage. Que ce soit dans les coutumes de leur peuple, dans la fureur de leurs passions ou dans leurs cris de bataille, la seule chose qu’ils connaissent est le conflit. Il s’agit de sauvages, de mercenaires qui louent leurs services ou encore d’experts en techniques martiales violentes. Ce ne sont ni des soldats ni des guerriers professionnels mais des créatures entièrement dévouées à la bataille et au carnage, des esprits de la guerre. Ces combattants, connus sous le nom de barbares, font peu de cas de l’entraînement, de la préparation ou des règles d’affrontement. Seuls comptent pour eux le moment présent, les ennemis qui se tiennent devant eux et le fait de savoir que la mort pourrait les surprendre à tout moment. Ils possèdent un sixième sens pour le danger et sont suffisamment endurants pour supporter tout ce qui pourrait leur arriver. Ces combattants violents peuvent apparaître au sein de n’importe quelle communauté, qu’elle soit civilisée ou primitive, mais, dans les recoins sauvages du monde, des sociétés entières ont embrassé cette philosophie. C’est l’esprit originel des batailles qui se déchaîne dans le cœur des barbares : malheur à ceux qui affronteront leur rage.', NULL),
 (2, 'Barde', 6, 6, 'CHA', 40, 160, 'Pour ceux qui sont capables de les découvrir, le monde contient des merveilles insoupçonnées et de nombreux mystères. C’est grâce à leur intelligence, leur habileté et leur magie que quelques individus rusés percent les secrets du monde tout en se formant aux arts de la persuasion, de la manipulation et de l’inspiration. Ces bardes, qui maîtrisent généralement une ou plusieurs formes d’expression artistique, possèdent des connaissances étonnamment variées et utilisent ce qu’ils apprennent pour se préparer aux dangers qui les menacent, eux et leurs alliés. Vifs d’esprit et passionnants, les bardes possèdent des compétences diversifiées qui peuvent les mener vers de nombreuses carrières : joueurs professionnels, touche-à-tout, érudits ou artistes, chefs charismatiques ou brigands, ou bien encore tout cela à la fois. Pour les bardes, chaque jour apporte son lot d’opportunités, d’aventures et de défis dont il n’est possible de tirer avantage qu’en prenant des risques, en élargissant ses connaissances et en se donnant à cent pour cent.', 'profane'),
 (3, 'Druide', 8, 4, 'WIS', 20, 80, 'Il existe dans la pureté des éléments et dans l’organisation de la nature un pouvoir qui dépasse les merveilles de la civilisation. Cette magie brute, discrète mais indéniable, est protégée par des adeptes de la philosophie de l’équilibre, appelés druides. À la fois alliés des bêtes et maîtres de la nature, ces défenseurs des étendues sauvages souvent mal compris s’efforcent de protéger leurs terres de tous ceux qui les menacent et démontrent la puissance de la nature à ceux qui se tapissent derrière les murs des cités. De nombreux pouvoirs viennent récompenser la dévotion des druides : ils obtiennent des capacités de métamorphose inégalées, reçoivent l’aide de puissants compagnons animaux et peuvent laisser éclater la colère de la nature. Les plus puissants d’entre eux maîtrisent le pouvoir des tempêtes, des tremblements de terre et des volcans grâce à une sagesse ancestrale que la civilisation a abandonnée et oubliée depuis longtemps.', 'divine'),
@@ -205,7 +217,7 @@ INSERT INTO `classe` (`id`, `nom`, `dV`, `pointsCompetences`, `caracteristiqueLa
 
 -- { Déchargement des données de la table `race`
 
-INSERT INTO `race` (`id`, `nom`, `taille`, `vitesse`, `donsSuppLvl1`, `compSuppLvl1`, `compSuppByLvl`, `idClassePredilection`, `immuniteSommeil`, `visionNocturne`, `visionNoir`, `modifFor`, `modifDex`, `modifCon`, `modifInt`, `modifSag`, `modifCha`, `nbLanguesSupplementaires`, `description`) VALUES
+INSERT INTO `race` (`id`, `nom`, `taille`, `vitesse`, `dons_supp_lvl1`, `comp_supp_lvl1`, `comp_supp_by_lvl`, `id_classe_predilection`, `immunite_sommeil`, `vision_nocturne`, `vision_noir`, `modif_for`, `modif_dex`, `modif_con`, `modif_int`, `modif_sag`, `modif_cha`, `nb_langues_supplementaires`, `description`) VALUES
 (1, 'Humain', 'M', 9, 1, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'La plupart des humains descendent de pionniers, marchands, voyageurs réfugiés et autres populations en constant mouvement. Il en résulte une grande variété, tant au niveau du physique que de la culture, des croyances religieuses et du système politique. Frêles ou fort, blancs ou noirs de peau, extravertis ou renfermés, primitifs ou civilisés, dévots ou impies, toutes les tendances sont représentées au sein de la race humaine.\r\nParmi les races dominantes, les humains sont les plus ambitieux et ceux qui ont les plus grandes capacités d\'adaptation. Chez eux, la diversité est la règle tant pour ce qui est des goûts que de la morale, des coutumes ou des habitudes. D\'aucuns les accusent de n\'avoir aucun respect pour l\'histoire, mais vivant bien moins vieux que les elfes, gnomes, halfelins et autres nains, il est naturel que les humains aient une mémoire collective plus limitée que les autres race.\r\nLes humains se mêlent aussi aisément aux autres races qu\'aux autres communautés humaines. Il en résulte que presque tout les humanoïdes les considèrent comme le meilleur second choix possible. Ils occupent souvent des postes d\'ambassadeurs, diplomates, magistrats, marchands ou fonctionnaires.\r\n\r\nLa classe de niveau le plus haut compte comme sa classe de prédilection, quelle qu\'elle soit.\r\n1 don supplémentaire au niveau 1.\r\n4 points de compétences supplémentaires au niveau 1 et 1 point de compétence supplémentaire à chaque niveau.\r\nLangue parlée : Commun.'),
 (2, 'Demi-Elfe', 'M', 9, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 'Il arrive qu\'elfes et humains se marient, les premiers étant attirés par la vitalité des seconds et les seconds par la grâce des premiers. Ces unions s\'achèvent prématurément du point de vu des elfes, qui vivent bien plus longtemps que les humains, mais elles perdurent à travers des enfants métis: les demi-elfes.\r\nL’existence de ces derniers n\'est pas toujours facile. Lorsqu\'ils sont élevés par les elfes, ils grandissent avec une rapidité stupéfiante, devenant adulte en une vingtaine d\'années, ce qui ne laisse pas de temps d\'apprendre la complexité de la grammaire elfique, sans parler de la culture et de l\'expression artistique. Ils se retrouvent bien vite séparés de leurs amis d\'enfance, même si les elfes continuent de les considérer comme des enfants lorsqu\'ils ont atteint l\'âge adulte. Il n\'est pas rare qu\'ils finissent par quitter leur univers natal pour vivre chez les humains.\r\nA l\'inverse, s\'ils sont élevés chez les humains, ils grandissent moins rapidement que les enfants de leur âge. Il sont plus distants, plus sensibles et moins ambitieux que les humains. Certains tentent tout de même de s\'intégrer à la société humaine, tandis que d\'autres préfèrent trouver leur identité dans l\'acceptation de leurs différences. La plupart finissent par résider chez les humains même s\'ils se considèrent parfois comme étrangers toute leur vie durant.\r\nLa plupart des demi-elfes montrent de la curiosité, les facultés d\'inventions et l\'ambition de leur parent humain, ainsi que le raffinement, l\'amour de la nature et les goûts des artistiques de leur parent elfe.\r\nLes demi-elfes s\'entendent bien avec les humains et les elfes, mais aussi avec les nains, les gnomes et les Halfelins.\r\n\r\nLa classe de niveau le plus haut compte comme sa classe de prédilection, quelle qu\'elle soit.\r\nImmunité contre le sommeil.\r\nVision nocturne.\r\nLangues parlées : Commun et elfique.'),
 (3, 'Demi-Orque', 'M', 9, 0, 0, 0, 1, 0, 0, 1, 2, 0, 0, -2, 0, -2, 1, 'Sut les terres qui bordent les régions sauvages, les tribus de barabres orques et humains trouvent un équilibre précaire qui les pousse à commercer en temps de paix et à se battre en temps de guerre. Les demi-orques vivent indifféremment chez leurs parents orque ou humain, mais sont néanmoins en contact avec les deux cultures. Certains quittent leur région natale pour se rendre dans le secteurs plus civilisés, emmenant leur tenacité, leur courage et l\'art du combat qu\'ils ont dévellopé dans les contrées sauvages.\r\nLes demi-orques sont prompts à la colère et d\'un naturel renfrogné. Ils préfèrent agir et combattre que réfléchir et discuter. Ceux qui réussisent le mieux sont toutefois ceux qui parviennent à tempérer leurs instincts.\r\nIls aiment festoyer, manger, boire, se vanter, chanter, disputer des matchs de lutte, faire des percussions et danser frénétiquement. Les passe-temps plus raffinés tels que la poésie, la philosophie et les danses courtoises ne sont pas pour eux. Ils peuvent être un atout dans une fête débridée, mais sont indubitablement un handicap au bal annuel de la duchesse.\r\n\r\nClasse de prédilection : barbare.\r\n+2 en force, -2 en intelligence, -2 en charisme.\r\nVision dans le noir.\r\nLangues parlées : Commun et orque.\r\n'),
@@ -218,7 +230,7 @@ INSERT INTO `race` (`id`, `nom`, `taille`, `vitesse`, `donsSuppLvl1`, `compSuppL
 
 -- { Déchargement des données de la table `dieu`
 
-INSERT INTO `dieu` (`id`, `nom`, `description`, `Alignement`) VALUES
+INSERT INTO `dieu` (`id`, `nom`, `description`, `alignement`) VALUES
 (1, 'Boccob', 'Le dieu de la magie est neutre. Ses titres incluent l\'Indifférent, le Zeigneur de toute magie et l\'Archimage des dieux. C\'est une déité distante qui ne s\'implique guère dans le monde des mortels. En tant que dieu de la magie et de la connaissance, il est vénéré par les maficiens, les ensocelleurs, et les sages. Il est associé aux domaines suivants: Connaissance, Duperie, Magie. Son arme de prédilection est le baton.', 'N'),
 (2, 'Corellon Larethian', 'Le dieu des elfes est chaotique bon. On le connait sous les noms de Créateur des elfes, Protecteur, Protecteur et Préservateur de tout ce qui vit, et Seigneur des elfes. C\'est le créateur et le protecteur de la race elfe. Il règne sur tout ce que les elfes tiennent en haute estime, à savoir la magie, la musique, les arts, l\'artisanat, la poésie et l\'art de la guerre. Elfes, demi-elfes, et bardes le vénèrent. Il est associé aux dommaines suivants: Bien, Chaos, Guerre, Protection. Son arme de prédilection est l\'épee longue. Les talents d\'escrimeur de Corellon sont à l\'origine d\'un des noms de Grurmsh, son ennemi juré: le dieu des orques est appelé entre autre \"le borgne\".', 'CB'),
 (3, 'Ehlonna', 'Parfois dépeinte comme une elfe, parfois comme une humaine, Éhlonna est souvent associée aux licornes et autres créatures sylvestres. Sous sa forme humaine, c\'est une femme aux cheveux sombres et aux yeux d\'un bleu profond, mais lorsqu\'elle s\'incarne sous l\'apparence d\'Éhlénestra, elle a la chevelure d\'or et les yeux violets saisissants d\'une jeune fille elfe; sa vêture peut aussi bien être la tenue pratique d\'un rôdeur que la riche robe d\'une princesse elfe. Elle possède un arc long qui touche toujours sa cible. Sous son aspect humain, elle peut contrôler les chevaux, tandis que sous l\'aspect d\'Éhlénestra, elle commande aux licornes.\nÉhlonna connaît une intense rivalité avec Obad-Haï. Là où Éhlonna, qui est bonne neutre, défend la beauté et la bonté d\'une nature intacte, Obad-Haï, qui est neutre absolu considère la nature comme de l\'énergie sous sa forme la plus pure, impartiale et sans concession dans tous ses aspects. Éhlonna est l\'ennemie de Karaan, qui représente le côté obscur de la nature. Elle entretient des relations amicales avec la Seldarine ainsi qu\'avec la plupart des divinités d\'alignement bon et est alliée à Atroa. Elle est servie par un planétaire du nom de Novalée.', 'NB'),
@@ -270,7 +282,7 @@ INSERT INTO `caracteristique` (`id`, `nom`, `diminutif`) VALUES
 
 -- { Déchargement des données de la table `age`
 
-INSERT INTO `age` (`id`, `race`, `ageAdulte`, `ageMur`, `ageGrand`, `ageVenerable`, `ageMaximal`) VALUES
+INSERT INTO `age` (`id`, `race`, `age_adulte`, `age_mur`, `age_grand`, `age_venerable`, `age_maximal`) VALUES
 (1, 1, 15, 34, 53, 70, 110),
 (2, 2, 20, 62, 93, 125, 185),
 (3, 3, 14, 30, 45, 60, 80),
@@ -283,7 +295,7 @@ INSERT INTO `age` (`id`, `race`, `ageAdulte`, `ageMur`, `ageGrand`, `ageVenerabl
 
 -- { Déchargement des données de la table `charge`
 
-INSERT INTO `charge` (`id`, `force`, `legereMax`, `intermediaireMax`, `lourdeMax`) VALUES
+INSERT INTO `charge` (`id`, `force`, `legere_max`, `intermediaire_max`, `lourde_max`) VALUES
 (1, 1, 1.5, 3, 5),
 (2, 2, 3, 6.5, 10),
 (3, 3, 5, 10, 15),
@@ -318,7 +330,7 @@ INSERT INTO `charge` (`id`, `force`, `legereMax`, `intermediaireMax`, `lourdeMax
 
 -- { Déchargement des données de la table `competence`
 
-INSERT INTO `competence` (`id`, `nom`, `caracteristique`, `malusArmure`, `formationNecessaire`, `description`, `action`, `nouvelleTentative`, `special`) VALUES
+INSERT INTO `competence` (`id`, `nom`, `caracteristique`, `malus_armure`, `formation_necessaire`, `description`, `action`, `nouvelle_tentative`, `special`) VALUES
 (1, 'Acrobaties', 'Dex', 1, 1, 'On ne peut pas faire appel à cette compétence si sa vitesse de déplacement est réduite par le poids de son armure, d’un équipement trop important ou d’un éventuel butin.\nTest de compétence. Le personnage atterrit sur ses pieds ou exécute un roulé-boulé lui permettant de se retrouver derrière l’ennemi. Il peut enchaîner les flips et autres sauts périlleux pour distraire un public (comme avec la compétence Représentation). Enchaînement d’acrobaties accéléré: Un personnage peut enchaîner les acrobaties à côté ou à travers les rangs ennemis plus rapidement, mais au prix d’un malus de –10 sur son test d’Acrobaties. Il peut alors se déplacer à sa vitesse normale (au lieu de la moitié de cette vitesse).', 'Les acrobaties se font en même temps qu’un déplacement, et les tests d’Acrobaties font donc partie d’une action de mouvement.', 'Un public qui a jugé défavorablement un acrobate n’a aucune chance d’être conquis par la suite. On ne peut tenter d’amortir sa chute qu’une fois par chute.', 'Un personnage ayant un degré de maîtrise de 5 en Acrobaties bénéficie d’un bonus d’esquive de +3 à la CA lorsqu’il décide de combattre défensivement, au lieu du bonus normal de +2 (voir Combattre sur la défensive).\nDe même, tout personnage ayant un degré de maîtrise de 5 en Acrobaties bénéficie d’un bonus d’esquive de +6 à la CA lorsqu’il décide de se mettre en défense totale, au lieu du bonus normal de +4 (voir Défense totale).\nUn personnage possédant le don Voltigeur obtient un bonus de +2 sur les tests d’Acrobaties.'),
 (2, 'Art de la magie ', 'Int', 0, 1, 'Cette compétence sert à identifier les sorts actifs, mais aussi ceux que les autres personnages sont en train de lancer.', 'Se référer au livre de règle 1.', 'Se référer au livre de règle 1.', 'Les magiciens spécialisés bénéficient d’un bonus de +2 au test de compétence lorsqu’ils sont en présence d’un sort de leur école de prédilection. En revanche, ils subissent un malus de –5 si le sort provient d’une école qui leur est interdite (dans ce cas, certaines possibilités leur sont même refusées, comme apprendre le sort en question).\nUn personnage possédant le don Affinité magique obtient un bonus de +2 sur les tests d’Art de la magie.\nDe plus, certains sorts permettent d’obtenir des informations supplémentaires sur la magie à condition de réussir un test d’Art de la magie Lorsque c’est le cas, ces indications sont données dans la description du sort (voir par exemple détection de la magie).\n'),
 (3, 'Bluff', 'Cha', 0, 0, 'Le test de Bluff est opposé à un test de Psychologie de la victime.\r\nIl peut être fortement influencé par la situation. Deux éléments, entre autres, peuvent être très défavorables au bluffeur : l’histoire qu’il raconte est particulièrement difficile à croire ou l’action qu’il cherche à faire accomplir à la cible va à l’encontre des convictions ou de l’intérêt de cette dernière (ou des ordres qu’elle a reçus, etc.). S’il le juge important, on peut faire la différence entre un bluff échouant parce que la cible n’y croit pas, et un autre échouant pour la simple raison que le personnage en demande trop. Par exemple, si la cible bénéficie d’un bonus de +10 au test de Psychologie en raison des risques associés à la proposition faite par le personnage et si elle remporte le duel de compétences de 10 points ou moins, elle refuse de faire ce qu’on lui demande, mais ne se rend pas compte qu’on tente de l’abuser. Par contre, si elle le remporte de 11 ou plus, la cible comprend que le personnage essaye de la rouler.\r\nUn test de Bluff réussi indique que la cible se comporte comme le personnage le souhaite, du moins pour un temps limité (généralement 1 round), ou qu’elle croit ce que le personnage lui raconte.\r\nUn bluff implique nécessairement une interaction entre le personnage et sa victime. Une créature inconsciente de la présence du personnage ne peut pas être abusée.\r\nFeinter en combat. Cette compétence peut également servir à tromper un adversaire au combat au corps à corps afin de l’empêcher d’esquiver la prochaine attaque du personnage. Pour feinter en combat, le personnage doit effectuer un test de Bluff opposé par le test de Psychologie de sa cible. Cette dernière bénéficie d’un bonus sur son test égal à son bonus de base à l’attaque, en plus des modificateurs habituels. Si le résultat du test de Bluff du personnage est supérieur au résultat de ce test spécial de Bluff, la cible se laisse abuser par ce qu’elle voit, avec pour conséquence que son bonus de Dextérité à la CA ne s’applique pas à la prochaine attaque au corps à corps du personnage. L’attaque doit impérativement se produire avant ou lors du prochain tour de jeu de l’aventurier.\r\nCe type de feinte est extrêmement difficile à réussir contre un ennemi non humanoïde, pour la bonne et simple raison que ce dernier a du mal à lire le langage corporel du personnage (et qu’il se laisse donc moins facilement abuser par de fausses indications) ; dans ce cas, le test de Bluff s’effectue avec un malus de –4. C’est encore plus dur contre une créature d’intelligence animale (Int 1 ou 2) et le test s’accompagne d’un malus de –8. Enfin, il est impossible de feinter un monstre dénué d’intelligence.\r\nFeinter en combat ne provoque pas d’attaque d’opportunité.\r\nCréer une diversion pour se cacher. La compétence Bluff peut aider à se cacher. Sur un test de compétence réussi, un personnage se trouvant au vu et au su de tous obtient la diversion nécessaire pour tenter un test de Discrétion. Cela ne provoque pas d’attaque d’opportunité.\r\nTransmettre un message secret. Un personnage peut utiliser Bluff pour transmettre un message à une autre personne sans que les autres témoins ne puissent le comprendre. Deux roublards utilisant cette compétence peuvent donner l’impression qu’ils discutent de la nouvelle boulangerie du quartier, alors qu’ils préparent en fait le cambriolage du laboratoire d’un magicien maléfique. Le DD est de 15 pour les messages simples et de 20 pour les messages complexes, surtout si ceux- ci font passer des informations nouvelles pour l’auditeur. En cas d’échec de 4 points ou moins, aucun message n’est transmis. Par contre, en cas d’échec plus important (5 points ou plus), un message erroné est transmis ou compris. Toute personne entendant l’échange peut tenter d’intercepter le message par un test de Psychologie opposé au test de Bluff effectué pour transmettre le message (Voir Psychologie).', 'Lors d’une simple discussion, un test de Bluff nécessite au moins 1 round (et donc au moins une action complexe) et peut durer bien plus longtemps si le personnage se lance dans une embrouille particulièrement élaborée. Un test de Bluff joué pour feinter en combat ou créer une diversion pour se cacher est une action simple. Un test de Bluff joué pour transmettre un message secret n’est pas une action, il se fait en même temps qu’une conversation normale. Cependant, on peut limiter la quantité d’informations qu’un personnage peut émettre en un seul round.', 'En règle générale, un test de Bluff raté lors d’une discussion rend la cible trop soupçonneuse pour qu’il soit possible de tenter de l’abuser de nouveau dans les mêmes conditions. Par contre, on peut multiplier les feintes au combat sans limite. Il est aussi de tenter plusieurs fois de transmettre un message, dans la limite d’une fois par round. Chance tentative peut se solder par un message erroné.', 'Les rôdeurs bénéficient d’un bonus au test de compétence lorsqu’ils utilisent Bluff contre leurs ennemis jurés.\r\nUn personnage ayant un serpent pour familier obtient un bonus de +3 sur les tests de Bluff.\r\nUn personnage possédant le don Persuasion obtient un bonus de +2 sur les tests de Bluff.'),
@@ -348,7 +360,7 @@ INSERT INTO `competence` (`id`, `nom`, `caracteristique`, `malusArmure`, `format
 (27, 'Perception auditive', 'Sag', 0, 0, 'Le test de Perception auditive se joue contre un DD reflétant le volume du bruit que l’on peut entendre, ou contre un test opposé de Déplacement silencieux.\nOn peut jouer lui-même le test s’il ne veut pas que le joueur sache si son personnage a raté son utilisation de compétence ou s’il n’y avait rien à entendre.', 'Variable. Le personnage peut faire un test de Perception auditive sans dépenser d’action chaque fois qu’il a l’occasion d’entendre un bruit de façon réactive (par exemple, en arrivant dans une nouvelle pièce ou lorsqu’un monstre lointain fait un bruit). Par contre, retenter d’écouter un bruit que l’on n’a pas réussi à entendre est une action de mouvement.', 'Oui. Un personnage peut essayer d’entendre un bruit autant de fois qu’il le souhaite.', 'Lorsque plusieurs personnages écoutent la même chose, on joue un test de Perception auditive commun auquel il ajoute le bonus de chacun au cas par cas.\nUne créature fascinée subit un malus de –4 à ses tests de Perception auditive utilisés de façon réactive.\nUn personnage possédant le don Vigilance bénéficie d’un bonus de +2 aux tests de Perception auditive.\nLes rôdeurs gagnent un bonus aux tests de Perception auditive contre leurs ennemis jurés.\nLes elfes, les gnomes et les halfelins bénéficient d’un bonus racial de +2 aux tests de Perception auditive.\nLes demi-elfes bénéficient d’un bonus racial de +1 sur les tests de Perception auditive.\nUn personnage endormi peut effectuer des tests de Perception auditive avec un malus de –10. En cas de réussite, il se réveille.'),
 (28, 'Premiers secours', 'Sag', 0, 0, 'Ce terme, qui donne son nom à la compétence, signifie généralement que le personnage intervient rapidement afin de sauver un compagnon mourant. Lorsque quelqu’un est tombé en dessous de 0 point de vie et continue de se vider de son sang (en perdant 1 point de vie par round, par heure ou par jour), le personnage peut stabiliser son état. Le blessé ne récupère aucun point de vie, mais il cesse au moins d’en perdre. Le test de compétence correspond à une action simple.', 'Donner les premiers secours, soigner une blessure de chausse- trappe ou un empoisonnement est une action simple. Soigner une maladie ou soigner une blessure de croissance d\'épines ou de pierres acérées nécessite 10 minutes de travail. Donner des soins suivis prend 8 heures d’activité réduite.', 'Variable. En règle générale, il est impossible de tenter un nouveau test de Premier secours sans avoir une preuve de l’échec du premier test. Par exemple, un personnage ayant soigné un empoisonnement doit attendre le prochain jet de sauvegarde contre le poison de la victime pour savoir s’il a réussi ou pas, et il ne peut donc réessayer avant cela. Il est toujours possible de retenter de stabiliser un compagnon mourant, à condition qu’il soit toujours vivant.', 'Un personnage possédant le don Autonome obtient un bonus de +2 sur les tests de Premiers secours.\nUne trousse de premiers secours confère un bonus de circonstances de +2 aux tests de Premiers secours.'),
 (29, 'Profession', 'Sag', 0, 1, 'Tout comme Artisanat, Connaissances ou Représentation, Profession regroupe en fait de nombreuses compétences fort différentes. On peut avoir plusieurs professions, mais chacune doit avoir son degré de maîtrise et être achetée séparément. Tous les métiers regroupés sous la compétence Artisanat permettent de fabriquer quelque chose, tandis que ceux qui dépendent de Profession représentent une aptitude ou une vocation exigeant des connaissances plus étendues, mais moins spécialisées, dans un domaine précis.', 'Sans objet. Les tests de Profession se font à la semaine.', 'Variable. Lorsque le personnage utilise sa profession pour gagner sa vie, il ne peut pas retenter sa chance et doit se contenter du résultat indiqué par le dé. Il aura droit à un nouvel essai dès la semaine suivante. Il est généralement possible de réessayer d’accomplir une tâche spécialisée.', 'Les ouvriers non qualifiés (dont le degré de maîtrise est de 0) sont payés en moyenne 1 pa par jour.');
-INSERT INTO `competence` (`id`, `nom`, `caracteristique`, `malusArmure`, `formationNecessaire`, `description`, `action`, `nouvelleTentative`, `special`) VALUES
+INSERT INTO `competence` (`id`, `nom`, `caracteristique`, `malus_armure`, `formation_necessaire`, `description`, `action`, `nouvelle_tentative`, `special`) VALUES
 (30, 'Psychologie', 'Sag', 0, 0, 'Un test de Psychologie réussi permet de ne pas se faire bluffer (voir la compétence Bluff). Il est également possible de faire appel à cette compétence pour sentir quand quelque chose de louche se prépare ou pour déterminer si quelqu’un est digne de confiance. On peut décider de jouer le test de Psychologie en secret, afin que la sincérité de ses interlocuteurs reste toujours en doute.', 'Il faut au moins une minute pour tenter d’obtenir la moindre information à l’aide de cette compétence, mais le personnage peut éventuellement passer une soirée entière à essayer de comprendre ce que pensent les gens qui l’entourent.', 'Non, mais il est possible de jouer un test de Psychologie pour chaque tentative de Bluff dont on fait l’objet.', 'Les rôdeurs gagnent un bonus aux tests de Psychologie contre leurs ennemis jurés.\nUn personnage possédant le don Négociation obtient un bonus de +2 sur les tests de Psychologie.'),
 (31, 'Renseignements', 'Cha', 0, 0, 'En dépensant quelques pièces d’or pour payer à boire dans une taverne et se faire quelques amis, et en réussissant un test de Renseignements (DD 10), le personnage apprend quelles sont les nouvelles en ville, à condition que ses interlocuteurs n’aient pas de raison de lui cacher quoi que ce soit. Les haines raciales sont une de ces raisons (comme un elfe cherchant à obtenir des renseignements dans une bourgade orque) et l’incapacité à parler la langue locale en est une autre. Plus le résultat du test est élevé, plus les informations sont détaillées.\nSi le personnage s’intéresse à un point précis, un objet ou cherche à obtenir une carte ou quelque chose de ce genre, le DD peut passer à 15, 20, 25 ou même au-delà.', 'Un test de Renseignements prend en général 1d4+1 heures.', 'Oui, mais une nouvelle soirée est nécessaire pour retenter sa chance. De plus, le personnage va finir par attirer l’attention sur lui à force de poser les mêmes questions.', ' Les demi-elfes bénéficient d’un bonus racial de +2 sur leurs tests de Renseignements.\nUn personnage possédant le don Fin limier obtient un bonus de +2 sur les tests de Renseignements.'),
 (32, 'Représentation (Chant)', 'Cha', 0, 0, 'Comme Artisanat, Connaissances et Profession, Représentation regroupe en fait de nombreuses compétences distinctes. On peut développer plusieurs formes de Représentation, mais chacune doit avoir son degré de maîtrise et être achetée séparément.\r\nChacune des neuf formes de Représentation inclut une grande variété de méthodes, d’instruments et de techniques, dont seule une petite partie est présente dans la liste ci-dessous. On peut étendre chacune de ses catégories avec des éléments supplémentaires correspondant à son monde de campagne.', 'Variable. Il faut entre une soirée et une journée entière pour gagner de l’argent en jouant en public. Les pouvoirs du barde fondés sur la compétence Représentation sont détaillés dans la description de cette classe.', 'Oui. Cependant, les nouvelles tentatives ne font pas oublier les échecs précédents et un public ayant eu une mauvaise impression d’un artiste sera par la suite plus difficile à contenter (le DD du test augmente de +2 par échec).', 'Un barde doit avoir un degré de maîtrise de 3 ou plus en Représentation pour utiliser ses pouvoirs de contre- chant, de fascination et d’inspiration vaillante. De même, il lui faut un degré de maîtrise de 6 pour l’inspiration talentueuse, de 9 pour utiliser son pouvoir de suggestion, de 12 pour l’inspiration héroïque, de 15 pour utiliser son pouvoir de chant de liberté, de 18 pour l’inspiration intrépide et de 21 pour utiliser son pouvoir de suggestion de groupe. Voir l’aptitude de musique de barde dans la description de la classe de barde.\r\nIl est également possible de divertir un public en faisant des acrobaties ou des tours de passe- passe (avec Escamotage), en marchant sur une corde (avec Équilibre) ou en lançant des sorts, notamment des illusions.'),
@@ -373,7 +385,7 @@ INSERT INTO `competence` (`id`, `nom`, `caracteristique`, `malusArmure`, `format
 (87, 'Représentation (Déclamation)', 'Cha', 0, 0, 'Comme Artisanat, Connaissances et Profession, Représentation regroupe en fait de nombreuses compétences distinctes. On peut développer plusieurs formes de Représentation, mais chacune doit avoir son degré de maîtrise et être achetée séparément.\r\nChacune des neuf formes de Représentation inclut une grande variété de méthodes, d’instruments et de techniques, dont seule une petite partie est présente dans la liste ci-dessous. On peut étendre chacune de ses catégories avec des éléments supplémentaires correspondant à son monde de campagne.', 'Variable. Il faut entre une soirée et une journée entière pour gagner de l’argent en jouant en public. Les pouvoirs du barde fondés sur la compétence Représentation sont détaillés dans la description de cette classe.', 'Oui. Cependant, les nouvelles tentatives ne font pas oublier les échecs précédents et un public ayant eu une mauvaise impression d’un artiste sera par la suite plus difficile à contenter (le DD du test augmente de +2 par échec).', 'Un barde doit avoir un degré de maîtrise de 3 ou plus en Représentation pour utiliser ses pouvoirs de contre- chant, de fascination et d’inspiration vaillante. De même, il lui faut un degré de maîtrise de 6 pour l’inspiration talentueuse, de 9 pour utiliser son pouvoir de suggestion, de 12 pour l’inspiration héroïque, de 15 pour utiliser son pouvoir de chant de liberté, de 18 pour l’inspiration intrépide et de 21 pour utiliser son pouvoir de suggestion de groupe. Voir l’aptitude de musique de barde dans la description de la classe de barde.\r\nIl est également possible de divertir un public en faisant des acrobaties ou des tours de passe- passe (avec Escamotage), en marchant sur une corde (avec Équilibre) ou en lançant des sorts, notamment des illusions.'),
 (88, 'Représentation (Farce)', 'Cha', 0, 0, 'Comme Artisanat, Connaissances et Profession, Représentation regroupe en fait de nombreuses compétences distinctes. On peut développer plusieurs formes de Représentation, mais chacune doit avoir son degré de maîtrise et être achetée séparément.\r\nChacune des neuf formes de Représentation inclut une grande variété de méthodes, d’instruments et de techniques, dont seule une petite partie est présente dans la liste ci-dessous. On peut étendre chacune de ses catégories avec des éléments supplémentaires correspondant à son monde de campagne.', 'Variable. Il faut entre une soirée et une journée entière pour gagner de l’argent en jouant en public. Les pouvoirs du barde fondés sur la compétence Représentation sont détaillés dans la description de cette classe.', 'Oui. Cependant, les nouvelles tentatives ne font pas oublier les échecs précédents et un public ayant eu une mauvaise impression d’un artiste sera par la suite plus difficile à contenter (le DD du test augmente de +2 par échec).', 'Un barde doit avoir un degré de maîtrise de 3 ou plus en Représentation pour utiliser ses pouvoirs de contre- chant, de fascination et d’inspiration vaillante. De même, il lui faut un degré de maîtrise de 6 pour l’inspiration talentueuse, de 9 pour utiliser son pouvoir de suggestion, de 12 pour l’inspiration héroïque, de 15 pour utiliser son pouvoir de chant de liberté, de 18 pour l’inspiration intrépide et de 21 pour utiliser son pouvoir de suggestion de groupe. Voir l’aptitude de musique de barde dans la description de la classe de barde.\r\nIl est également possible de divertir un public en faisant des acrobaties ou des tours de passe- passe (avec Escamotage), en marchant sur une corde (avec Équilibre) ou en lançant des sorts, notamment des illusions.'),
 (89, 'Représentation (Instruments à clavier)', 'Cha', 0, 0, 'Comme Artisanat, Connaissances et Profession, Représentation regroupe en fait de nombreuses compétences distinctes. On peut développer plusieurs formes de Représentation, mais chacune doit avoir son degré de maîtrise et être achetée séparément.\r\nChacune des neuf formes de Représentation inclut une grande variété de méthodes, d’instruments et de techniques, dont seule une petite partie est présente dans la liste ci-dessous. On peut étendre chacune de ses catégories avec des éléments supplémentaires correspondant à son monde de campagne.', 'Variable. Il faut entre une soirée et une journée entière pour gagner de l’argent en jouant en public. Les pouvoirs du barde fondés sur la compétence Représentation sont détaillés dans la description de cette classe.', 'Oui. Cependant, les nouvelles tentatives ne font pas oublier les échecs précédents et un public ayant eu une mauvaise impression d’un artiste sera par la suite plus difficile à contenter (le DD du test augmente de +2 par échec).', 'Un barde doit avoir un degré de maîtrise de 3 ou plus en Représentation pour utiliser ses pouvoirs de contre- chant, de fascination et d’inspiration vaillante. De même, il lui faut un degré de maîtrise de 6 pour l’inspiration talentueuse, de 9 pour utiliser son pouvoir de suggestion, de 12 pour l’inspiration héroïque, de 15 pour utiliser son pouvoir de chant de liberté, de 18 pour l’inspiration intrépide et de 21 pour utiliser son pouvoir de suggestion de groupe. Voir l’aptitude de musique de barde dans la description de la classe de barde.\r\nIl est également possible de divertir un public en faisant des acrobaties ou des tours de passe- passe (avec Escamotage), en marchant sur une corde (avec Équilibre) ou en lançant des sorts, notamment des illusions.');
-INSERT INTO `competence` (`id`, `nom`, `caracteristique`, `malusArmure`, `formationNecessaire`, `description`, `action`, `nouvelleTentative`, `special`) VALUES
+INSERT INTO `competence` (`id`, `nom`, `caracteristique`, `malus_armure`, `formation_necessaire`, `description`, `action`, `nouvelle_tentative`, `special`) VALUES
 (90, 'Représentation (Instruments à cordes)', 'Cha', 0, 0, 'Comme Artisanat, Connaissances et Profession, Représentation regroupe en fait de nombreuses compétences distinctes. On peut développer plusieurs formes de Représentation, mais chacune doit avoir son degré de maîtrise et être achetée séparément.\r\nChacune des neuf formes de Représentation inclut une grande variété de méthodes, d’instruments et de techniques, dont seule une petite partie est présente dans la liste ci-dessous. On peut étendre chacune de ses catégories avec des éléments supplémentaires correspondant à son monde de campagne.', 'Variable. Il faut entre une soirée et une journée entière pour gagner de l’argent en jouant en public. Les pouvoirs du barde fondés sur la compétence Représentation sont détaillés dans la description de cette classe.', 'Oui. Cependant, les nouvelles tentatives ne font pas oublier les échecs précédents et un public ayant eu une mauvaise impression d’un artiste sera par la suite plus difficile à contenter (le DD du test augmente de +2 par échec).', 'Un barde doit avoir un degré de maîtrise de 3 ou plus en Représentation pour utiliser ses pouvoirs de contre- chant, de fascination et d’inspiration vaillante. De même, il lui faut un degré de maîtrise de 6 pour l’inspiration talentueuse, de 9 pour utiliser son pouvoir de suggestion, de 12 pour l’inspiration héroïque, de 15 pour utiliser son pouvoir de chant de liberté, de 18 pour l’inspiration intrépide et de 21 pour utiliser son pouvoir de suggestion de groupe. Voir l’aptitude de musique de barde dans la description de la classe de barde.\r\nIl est également possible de divertir un public en faisant des acrobaties ou des tours de passe- passe (avec Escamotage), en marchant sur une corde (avec Équilibre) ou en lançant des sorts, notamment des illusions.'),
 (91, 'Représentation (Instruments à vent)', 'Cha', 0, 0, 'Comme Artisanat, Connaissances et Profession, Représentation regroupe en fait de nombreuses compétences distinctes. On peut développer plusieurs formes de Représentation, mais chacune doit avoir son degré de maîtrise et être achetée séparément.\r\nChacune des neuf formes de Représentation inclut une grande variété de méthodes, d’instruments et de techniques, dont seule une petite partie est présente dans la liste ci-dessous. On peut étendre chacune de ses catégories avec des éléments supplémentaires correspondant à son monde de campagne.', 'Variable. Il faut entre une soirée et une journée entière pour gagner de l’argent en jouant en public. Les pouvoirs du barde fondés sur la compétence Représentation sont détaillés dans la description de cette classe.', 'Oui. Cependant, les nouvelles tentatives ne font pas oublier les échecs précédents et un public ayant eu une mauvaise impression d’un artiste sera par la suite plus difficile à contenter (le DD du test augmente de +2 par échec).', 'Un barde doit avoir un degré de maîtrise de 3 ou plus en Représentation pour utiliser ses pouvoirs de contre- chant, de fascination et d’inspiration vaillante. De même, il lui faut un degré de maîtrise de 6 pour l’inspiration talentueuse, de 9 pour utiliser son pouvoir de suggestion, de 12 pour l’inspiration héroïque, de 15 pour utiliser son pouvoir de chant de liberté, de 18 pour l’inspiration intrépide et de 21 pour utiliser son pouvoir de suggestion de groupe. Voir l’aptitude de musique de barde dans la description de la classe de barde.\r\nIl est également possible de divertir un public en faisant des acrobaties ou des tours de passe- passe (avec Escamotage), en marchant sur une corde (avec Équilibre) ou en lançant des sorts, notamment des illusions.'),
 (92, 'Représentation (Percussions)', 'Cha', 0, 0, 'Comme Artisanat, Connaissances et Profession, Représentation regroupe en fait de nombreuses compétences distinctes. On peut développer plusieurs formes de Représentation, mais chacune doit avoir son degré de maîtrise et être achetée séparément.\r\nChacune des neuf formes de Représentation inclut une grande variété de méthodes, d’instruments et de techniques, dont seule une petite partie est présente dans la liste ci-dessous. On peut étendre chacune de ses catégories avec des éléments supplémentaires correspondant à son monde de campagne.', 'Variable. Il faut entre une soirée et une journée entière pour gagner de l’argent en jouant en public. Les pouvoirs du barde fondés sur la compétence Représentation sont détaillés dans la description de cette classe.', 'Oui. Cependant, les nouvelles tentatives ne font pas oublier les échecs précédents et un public ayant eu une mauvaise impression d’un artiste sera par la suite plus difficile à contenter (le DD du test augmente de +2 par échec).', 'Un barde doit avoir un degré de maîtrise de 3 ou plus en Représentation pour utiliser ses pouvoirs de contre- chant, de fascination et d’inspiration vaillante. De même, il lui faut un degré de maîtrise de 6 pour l’inspiration talentueuse, de 9 pour utiliser son pouvoir de suggestion, de 12 pour l’inspiration héroïque, de 15 pour utiliser son pouvoir de chant de liberté, de 18 pour l’inspiration intrépide et de 21 pour utiliser son pouvoir de suggestion de groupe. Voir l’aptitude de musique de barde dans la description de la classe de barde.\r\nIl est également possible de divertir un public en faisant des acrobaties ou des tours de passe- passe (avec Escamotage), en marchant sur une corde (avec Équilibre) ou en lançant des sorts, notamment des illusions.'),
@@ -383,7 +395,7 @@ INSERT INTO `competence` (`id`, `nom`, `caracteristique`, `malusArmure`, `format
 
 -- { Déchargement des données de la table `arme`
 
-INSERT INTO `arme` (`id`, `type`, `sousType`, `nom`, `degatsP`, `degatsM`, `critique`, `portee`, `poids`, `typeDegats`, `prix`, `forceMin`) VALUES
+INSERT INTO `arme` (`id`, `type`, `sous_type`, `nom`, `degats_p`, `degats_m`, `critique`, `portee`, `poids`, `type_degats`, `prix`, `force_min`) VALUES
 (1, 'Arme courante', 'Combat à mains nues', 'Attaque à mains nues', '1d2', '1d3', '20/*2', NULL, NULL, 'Contondant', NULL, NULL),
 (2, 'Arme courante', 'Combat à mains nues', 'Gantelet', '1d2', '1d3', '20/*2', NULL, 0.5, 'Contondant', 2, NULL),
 (3, 'Arme courante', 'Armes de corps à corps légères', 'Dague', '1d3', '1d4', '19-20/*2', 3, 0.5, 'Perforant ou tranchant', 2, NULL),
@@ -462,7 +474,7 @@ INSERT INTO `arme` (`id`, `type`, `sousType`, `nom`, `degatsP`, `degatsM`, `crit
 
 -- { Déchargement des données de la table `armure_bouclier`
 
-INSERT INTO `armure_bouclier` (`id`, `nom`, `type`, `prix`, `bonus`, `dexMax`, `malusTests`, `echecSorts`, `vitesse9`, `vitesse6`, `poids`) VALUES
+INSERT INTO `armure_bouclier` (`id`, `nom`, `type`, `prix`, `bonus`, `dex_max`, `malus_tests`, `echec_sorts`, `vitesse9`, `vitesse6`, `poids`) VALUES
 (2, 'Armure matelassée', 'Armure légère', 5, 1, 8, 0, 5, 9, 6, 5),
 (3, 'Armure de cuir', 'Armure légère', 10, 2, 6, 0, 10, 9, 6, 7.5),
 (4, 'Armure de cuir cloutée', 'Armure légère', 25, 3, 5, -1, 15, 9, 6, 10),
