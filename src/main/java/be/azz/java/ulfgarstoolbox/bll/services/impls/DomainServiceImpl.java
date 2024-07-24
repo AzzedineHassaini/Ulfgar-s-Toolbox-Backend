@@ -43,13 +43,6 @@ public class DomainServiceImpl implements IDomainService {
     }
 
     @Override
-    public DomainResponse findByName(String domainName) {
-        Domain domain = domainRepository.findByDomainName(domainName).orElseThrow(DomainNotFoundException::new);
-
-        return domainMapper.fromEntity(domain);
-    }
-
-    @Override
     public DomainResponse addDomain(DomainRequest request) {
         if (domainRepository.findByDomainName(request.name()).isPresent()) {
             throw new AlreadyExistsException("Domain already exists");

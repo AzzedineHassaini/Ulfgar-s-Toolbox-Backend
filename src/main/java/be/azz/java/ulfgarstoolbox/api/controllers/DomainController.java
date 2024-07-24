@@ -32,11 +32,6 @@ public class DomainController {
         return ResponseEntity.ok(domainService.findById(id));
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<DomainResponse> getDomainByName(@PathVariable("name") String name){
-        return ResponseEntity.ok(domainService.findByName(name));
-    }
-
     @PostMapping
     public ResponseEntity<DomainResponse> addDomain(@RequestBody @Valid DomainRequest request){
         return ResponseEntity.ok(domainService.addDomain(request));
