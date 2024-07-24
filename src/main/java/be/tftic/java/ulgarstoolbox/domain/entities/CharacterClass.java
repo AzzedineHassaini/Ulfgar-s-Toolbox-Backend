@@ -1,5 +1,6 @@
 package be.tftic.java.ulgarstoolbox.domain.entities;
 
+import be.tftic.java.ulgarstoolbox.domain.enums.Ability;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -33,7 +34,8 @@ public class CharacterClass {
 
     @Size(max = 15)
     @Column(name = "caracteristiqueLanceurSort", length = 15)
-    private String spellCasterAbility;
+    @Enumerated(EnumType.STRING)
+    private Ability spellCasterAbility;
 
     @NotNull
     @ColumnDefault("0")
