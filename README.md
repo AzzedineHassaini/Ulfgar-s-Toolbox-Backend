@@ -113,13 +113,13 @@ Copy-paste the following environment variables in your IDE:
 	SERVER_PORT=8080
 	
 	### Database Configuration ###
-	DATABASE_URL=jdbc:postgresql://localhost:5432/job_portal
-	DATABASE_USERNAME=postgres
-	DATABASE_PASSWORD=12345
-	DATABASE_DRIVER=org.postgresql.Driver
+	DATABASE_URL=jdbc:mysql://localhost:3066/dnd35
+	DATABASE_USERNAME=root
+	DATABASE_PASSWORD=root
+	DATABASE_DRIVER=com.mysql.cj.jdbc.Driver
 	
 	# This will every time drop and create the database schema
-	DATABASE_DDL_AUTO=create
+	DATABASE_DDL_AUTO=update
 	
 	DATABASE_SHOW_SQL=true
 	DATABASE_FORMAT_SQL=true
@@ -128,7 +128,7 @@ Copy-paste the following environment variables in your IDE:
 	JWT_ALGORITHM=HmacSHA256
 	
 	# Secret key for JWT that needs to be more than 256 bits (meaning 32 characters or more)
-	JWT_SECRET=TFTIC_LABO_SECRET_KEY_1234567890
+	JWT_SECRET=AZZ_PROJECT_SECRET_KEY_1234567890
 	
 	# 24 hours expiration time for JWT in milliseconds
 	JWT_EXPIRE_AT=86400000

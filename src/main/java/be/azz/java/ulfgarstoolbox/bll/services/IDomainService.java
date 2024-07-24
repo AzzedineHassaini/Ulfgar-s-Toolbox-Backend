@@ -12,8 +12,6 @@ public interface IDomainService {
 
     DomainResponse findById(Integer id);
 
-    DomainResponse findByName(String domainName);
-
     DomainResponse addDomain(DomainRequest request);
 
     DomainResponse updateDomain(Integer id, DomainRequest request);
