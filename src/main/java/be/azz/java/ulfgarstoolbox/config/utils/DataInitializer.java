@@ -1,6 +1,6 @@
 package be.azz.java.ulfgarstoolbox.config.utils;
 
-import be.azz.java.ulfgarstoolbox.dal.repository.UserRepository;
+import be.azz.java.ulfgarstoolbox.dal.repositories.UserRepository;
 import be.azz.java.ulfgarstoolbox.domain.entities.User;
 import be.azz.java.ulfgarstoolbox.domain.enums.Role;
 import lombok.RequiredArgsConstructor;

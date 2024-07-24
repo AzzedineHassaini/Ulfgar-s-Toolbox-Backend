@@ -25,12 +25,12 @@ public interface SpellSpecifications<T> {
             switch (key) {
 
                 case "class" -> {
-                    Join<SpellClass, CharacterClass> spellClassJoin = root.join("characterClass");
+                    Join<T, CharacterClass> spellClassJoin = root.join("characterClass");
                     yield criteriaBuilder.like(spellClassJoin.get("name"), "%" + value + "%");
                 }
 
                 case "domain" -> {
-                    Join<SpellDomain, Domain> spellDomainJoin = root.join("domain");
+                    Join<T, Domain> spellDomainJoin = root.join("domain");
                     yield criteriaBuilder.like(spellDomainJoin.get("name"), "%" + value + "%");
                 }
 
@@ -38,41 +38,49 @@ public interface SpellSpecifications<T> {
                     criteriaBuilder.equal(root.get("level"), value);
 
                 case "school" -> {
-                    Join<SpellClass, Spell> spellJoin = root.join("spell");
+                    Join<T, Spell> spellJoin = root.join("spell");
                     yield criteriaBuilder.equal(spellJoin.get("school"), value);
                 }
 
                 case "verbalComponents" -> {
-                    Join<SpellClass, Spell> spellJoin = root.join("spell");
+                    Join<T, Spell> spellJoin = root.join("spell");
                     yield criteriaBuilder.like(spellJoin.get("components"), "%V%");
                 }
 
                 case "materialComponents" -> {
-                    Join<SpellClass, Spell> spellJoin = root.join("spell");
+                    Join<T, Spell> spellJoin = root.join("spell");
                     yield criteriaBuilder.like(spellJoin.get("components"), "%M%");
                 }
 
                 case "somaticComponents" -> {
-                    Join<SpellClass, Spell> spellJoin = root.join("spell");
+                    Join<T, Spell> spellJoin = root.join("spell");
                     yield criteriaBuilder.like(spellJoin.get("components"), "%G%");
                 }
 
                 case "focusComponents" -> {
-                    Join<SpellClass, Spell> spellJoin = root.join("spell");
+                    Join<T, Spell> spellJoin = root.join("spell");
                     yield criteriaBuilder.like(spellJoin.get("components"), "%F%");
                 }
 
                 case "divineFocusComponents" -> {
-                    Join<SpellClass, Spell> spellJoin = root.join("spell");
+                    Join<T, Spell> spellJoin = root.join("spell");
                     yield criteriaBuilder.like(spellJoin.get("components"), "%FD%");
                 }
 
                 case "experienceComponents" -> {
-                    Join<SpellClass, Spell> spellJoin = root.join("spell");
+                    Join<T, Spell> spellJoin = root.join("spell");
                     yield criteriaBuilder.like(spellJoin.get("components"), "%XP%");
                 }
 
+                case "effect" -> {
+                    Join<T, Spell> spellJoin = root.join("spell");
+                    yield criteriaBuilder.like(spellJoin.get("effect"), "%" + value + "%");
+                }
 
+                case "description" -> {
+                    Join<T, Spell> spellJoin = root.join("spell");
+                    yield criteriaBuilder.like(spellJoin.get("description"), "%" + value + "%");
+                }
 
                 default -> null;
             };

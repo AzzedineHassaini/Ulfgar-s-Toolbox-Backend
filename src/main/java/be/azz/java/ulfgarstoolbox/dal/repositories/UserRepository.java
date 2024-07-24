@@ -1,4 +1,4 @@
-package be.azz.java.ulfgarstoolbox.dal.repository;
+package be.azz.java.ulfgarstoolbox.dal.repositories;
 
 import be.azz.java.ulfgarstoolbox.domain.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
