@@ -76,11 +76,13 @@
 ## About The Project
 
 
-### Built With
+### Tools
 
 * [![Java][Java.com]][Java-url]
 * [![Spring][Spring.io]][Spring-url]
 * [![MySQL][MySQL.com]][MySQL-url]
+* [![Jira][Jira.com]][Jira-url]
+* [![Postman][Postman.com]][Postman-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -180,6 +182,10 @@ Project Link: [https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend](htt
 [Spring-url]: https://spring.io/
 [MySQL.com]: https://img.shields.io/badge/MySQL-0769AD?style=for-the-badge&logo=MySQL&logoColor=white
 [MySQL-url]: https://www.mysql.com/
-[Java.com]: https://img.shields.io/badge/Java-0769AD?style=for-the-badge&logo=Java&logoColor=white
+[Java.com]: https://img.shields.io/badge/Java-0769AD?style=for-the-badge&logo=java&logoColor=white
 [Java-url]: https://www.java.com/
+[Jira.com]: https://img.shields.io/badge/Jira-0769AD?style=for-the-badge&logo=jira&logoColor=white
+[Jira-url]: https://www.jira.com/
+[Postman.com]: https://img.shields.io/badge/Postman-0769AD?style=for-the-badge&logo=Postman&logoColor=white
+[Postman-url]: https://www.postman.com/
 
