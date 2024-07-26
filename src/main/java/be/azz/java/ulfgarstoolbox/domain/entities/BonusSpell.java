@@ -57,6 +57,6 @@ public class BonusSpell {
     @NotNull
     @ColumnDefault("1")
     @Column(name = "can_cast", nullable = false)
-    private Byte canCast;
+    private boolean canCast;
 
 }
