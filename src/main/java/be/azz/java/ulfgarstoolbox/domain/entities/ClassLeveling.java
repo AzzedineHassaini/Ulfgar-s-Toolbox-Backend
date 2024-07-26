@@ -32,7 +32,7 @@ public class ClassLeveling {
 
     @NotNull
     @Column(name = "reflexes", nullable = false)
-    private Integer reflexSavingThrom;
+    private Integer reflexSavingThrow;
 
     @NotNull
     @Column(name = "vigueur", nullable = false)
