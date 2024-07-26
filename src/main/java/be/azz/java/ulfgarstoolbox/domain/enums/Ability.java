@@ -2,11 +2,11 @@ package be.azz.java.ulfgarstoolbox.domain.enums;
 
 public enum Ability {
 
-    STRENGTH("STR"),
+    STRENGTH("FOR"),
     DEXTERITY("DEX"),
     CONSTITUTION("CON"),
     INTELLIGENCE("INT"),
-    WISDOM("WIS"),
+    WISDOM("SAG"),
     CHARISMA("CHA");
 
     public final String shortName;
