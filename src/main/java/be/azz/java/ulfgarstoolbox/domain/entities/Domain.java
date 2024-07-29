@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -23,5 +25,8 @@ public class Domain {
 
     @Column(name = "pouvoir",columnDefinition = "TEXT")
     private String power;
+
+    @OneToMany (mappedBy = "domain")
+    private Set<SpellDomain> spellDomains;
 
 }

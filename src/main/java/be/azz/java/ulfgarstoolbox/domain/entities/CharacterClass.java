@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -53,6 +54,9 @@ public class CharacterClass {
     @Size(max = 45)
     @Column(name = "type_magie", length = 45)
     private String magicType;
+
+    @OneToMany (mappedBy = "characterClass")
+    private Set<SpellClass> spellClass;
 
     @Override
     public boolean equals(Object o) {

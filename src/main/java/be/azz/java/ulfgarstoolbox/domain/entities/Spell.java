@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -56,6 +57,12 @@ public class Spell {
 
     @Column(name = "cibles")
     private String targets;
+
+    @OneToMany (mappedBy = "spell")
+    private Set<SpellClass> spellClass;
+
+    @OneToMany (mappedBy = "spell")
+    private Set<SpellDomain> spellDomains;
 
     @Override
     public boolean equals(Object o) {
