@@ -31,7 +31,7 @@ public class Spell {
     @Column(name = "complement_ecole")
     private String schoolComplement;
 
-    @Column(name = "description",columnDefinition = "TEXT")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "sauvegarde")
