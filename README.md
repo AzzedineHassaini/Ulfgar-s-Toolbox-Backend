@@ -76,11 +76,14 @@
 ## About The Project
 
 
-### Built With
+### Tools
 
 * [![Java][Java.com]][Java-url]
 * [![Spring][Spring.io]][Spring-url]
 * [![MySQL][MySQL.com]][MySQL-url]
+* [![Jira][Jira.com]][Jira-url]
+* [![Postman][Postman.com]][Postman-url]
+* [![Draw.io][draw.io]][draw-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -137,7 +140,7 @@ Copy-paste the following environment variables in your IDE:
 	
 	# Front End Cors
 	ANGULAR_ALLOWED_ORIGINS=http://localhost:4200
- 
+
 4. Run the SQL scripts located in the data-init folder
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -182,6 +185,12 @@ Project Link: [https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend](htt
 [Spring-url]: https://spring.io/
 [MySQL.com]: https://img.shields.io/badge/MySQL-0769AD?style=for-the-badge&logo=MySQL&logoColor=white
 [MySQL-url]: https://www.mysql.com/
-[Java.com]: https://img.shields.io/badge/Java-0769AD?style=for-the-badge&logo=Java&logoColor=white
+[Java.com]: https://img.shields.io/badge/Java-0769AD?style=for-the-badge&logo=java&logoColor=white
 [Java-url]: https://www.java.com/
+[Jira.com]: https://img.shields.io/badge/Jira-0769AD?style=for-the-badge&logo=jira&logoColor=white
+[Jira-url]: https://www.jira.com/
+[Postman.com]: https://img.shields.io/badge/Postman-0769AD?style=for-the-badge&logo=Postman&logoColor=white
+[Postman-url]: https://www.postman.com/
+[draw.io]: https://img.shields.io/badge/Draw.io-0769AD?style=for-the-badge&logo=diagramsdotnet&logoColor=white
+[draw-url]: https://app.diagrams.net/
 
