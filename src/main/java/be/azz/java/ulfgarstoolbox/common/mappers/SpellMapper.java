@@ -1,11 +1,9 @@
 package be.azz.java.ulfgarstoolbox.common.mappers;
 
 import be.azz.java.ulfgarstoolbox.common.dtos.PagedResponse;
-import be.azz.java.ulfgarstoolbox.common.dtos.domain.responses.DomainResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellDetailsResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellShortResponse;
-import be.azz.java.ulfgarstoolbox.domain.entities.Domain;
-import be.azz.java.ulfgarstoolbox.domain.entities.tempTables.SpellDetails;
+import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetails;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
