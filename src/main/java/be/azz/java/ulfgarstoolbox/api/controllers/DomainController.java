@@ -7,6 +7,7 @@ import be.azz.java.ulfgarstoolbox.common.dtos.domain.responses.DomainResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -18,6 +19,7 @@ public class DomainController {
 
     private final IDomainService domainService;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
     @GetMapping
     public ResponseEntity<PagedResponse<DomainResponse>> getAllDomains(
             @RequestParam Map<String, String> params,
@@ -27,23 +29,27 @@ public class DomainController {
         return ResponseEntity.ok(domainService.findAll(params, page, pageSize));
     }
 
-    @GetMapping("/{id:^[0-9]+$}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
+    @GetMapping("/{id:\\d+}")
     public ResponseEntity<DomainResponse> getDomainById(@PathVariable("id") Integer id){
         return ResponseEntity.ok(domainService.findById(id));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR')")
     @PostMapping
     public ResponseEntity<DomainResponse> addDomain(@RequestBody @Valid DomainRequest request){
         return ResponseEntity.ok(domainService.addDomain(request));
     }
 
-    @PutMapping("/{id:^[0-9]+$}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR')")
+    @PutMapping("/{id:\\d+}")
     public ResponseEntity<DomainResponse> updateDomain(@PathVariable("id") Integer id,
                                                        @RequestBody @Valid DomainRequest request){
         return ResponseEntity.ok(domainService.updateDomain(id, request));
     }
 
-    @DeleteMapping("/{id:^[0-9]+$}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @DeleteMapping("/{id:\\d+}")
     public ResponseEntity<DomainResponse> deleteDomain(@PathVariable("id") Integer id){
         return ResponseEntity.ok(domainService.deleteDomain(id));
     }

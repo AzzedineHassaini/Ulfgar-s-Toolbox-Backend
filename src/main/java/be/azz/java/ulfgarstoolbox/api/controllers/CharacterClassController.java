@@ -26,7 +26,7 @@ public class CharacterClassController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
-    @GetMapping("/{id:^[0-9]$}")
+    @GetMapping("/{id:\\d+}")
     public ResponseEntity<CharacterClassResponse> getById(
             @PathVariable(name = "id") Integer id)
     {

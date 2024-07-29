@@ -23,7 +23,7 @@ public class BonusSpellController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
-    @GetMapping("/{abilityScore:^[0-9]$}")
+    @GetMapping("/{abilityScore:\\d+}")
     public ResponseEntity<BonusSpellResponse> getByAbilityScore(
             @PathVariable Integer abilityScore
     ) {
