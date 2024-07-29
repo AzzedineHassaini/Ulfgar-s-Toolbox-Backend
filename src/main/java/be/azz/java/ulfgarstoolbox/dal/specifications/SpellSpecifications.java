@@ -1,6 +1,6 @@
 package be.azz.java.ulfgarstoolbox.dal.specifications;
 
-import be.azz.java.ulfgarstoolbox.domain.entities.tempTables.SpellDetails;
+import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetails;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
@@ -51,7 +51,7 @@ public interface SpellSpecifications {
             case "materialComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%m%");
             case "somaticComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%g%");
             case "focusComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%f%");
-            case "experienceComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%xp%");
+            case "experienceComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%px%");
 
             default -> null;
         };
