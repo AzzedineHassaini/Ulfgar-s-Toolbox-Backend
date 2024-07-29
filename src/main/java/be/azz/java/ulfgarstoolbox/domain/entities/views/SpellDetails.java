@@ -1,4 +1,4 @@
-package be.azz.java.ulfgarstoolbox.domain.entities.tempTables;
+package be.azz.java.ulfgarstoolbox.domain.entities.views;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "TempSortDetails")  // Nom de la table temporaire créée par la procédure stockée
+@Table(name = "vue_spell_details")  // Nom de la table temporaire créée par la procédure stockée
 public class SpellDetails {
     @Id
     @Column(name = "id")
@@ -23,7 +23,7 @@ public class SpellDetails {
     @Column(name = "complement_ecole")
     private String schoolComplement;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "sauvegarde")
@@ -50,9 +50,9 @@ public class SpellDetails {
     @Column(name = "cibles")
     private String targets;
 
-    @Column(name = "classes_niveaux")
+    @Column(name = "classes_niveaux", columnDefinition = "TEXT")
     private String classLevels;
 
-    @Column(name = "domaines_niveaux")
+    @Column(name = "domaines_niveaux", columnDefinition = "TEXT")
     private String domainLevels;
 }
