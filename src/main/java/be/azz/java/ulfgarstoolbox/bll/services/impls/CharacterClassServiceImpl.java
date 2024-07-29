@@ -33,11 +33,9 @@ public class CharacterClassServiceImpl implements ICharacterClassService {
 
     @Override
     public CharacterClassResponse findById(int id) {
-        return characterClassMapper.fromEntity(characterClassRepository.findById(id).orElseThrow(CharacterClassNotFoundException::new));
-    }
-
-    @Override
-    public CharacterClassResponse findByName(String className) {
-        return null;
+        return characterClassMapper.fromEntity(
+                characterClassRepository.findById(id).
+                        orElseThrow(CharacterClassNotFoundException::new)
+        );
     }
 }

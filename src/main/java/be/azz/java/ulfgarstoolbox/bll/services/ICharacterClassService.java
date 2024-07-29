@@ -12,6 +12,4 @@ public interface ICharacterClassService {
 
     CharacterClassResponse findById(int id);
 
-    CharacterClassResponse findByName(String className);
-
 }

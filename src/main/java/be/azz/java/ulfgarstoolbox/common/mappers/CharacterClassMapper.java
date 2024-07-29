@@ -11,8 +11,6 @@ import org.springframework.data.domain.Page;
 @Mapper(componentModel = "spring")
 public interface CharacterClassMapper {
 
-
-//    @Mapping(source = "valueOf(spellCasterAbility)", target = "spellCasterAbility")
     CharacterClassResponse fromEntity(CharacterClass entity);
 
     @Mapping(source = "page.content", target = "content", defaultExpression = "java(java.util.Collections.emptyList())")
