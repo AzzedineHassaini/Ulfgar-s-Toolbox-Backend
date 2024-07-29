@@ -123,6 +123,8 @@ Copy-paste the following environment variables in your IDE:
 	
 	DATABASE_SHOW_SQL=true
 	DATABASE_FORMAT_SQL=true
+    DATABASE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+    DATABASE_APPLY_VALIDATOR=false
 	
 	### JWT Configuration ###
 	JWT_ALGORITHM=HmacSHA256

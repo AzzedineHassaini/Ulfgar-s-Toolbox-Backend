@@ -23,6 +23,7 @@ public class Domain {
     @Column(name = "domaine",unique = true, nullable = false)
     private String name;
 
+    @Lob
     @Column(name = "pouvoir",columnDefinition = "TEXT")
     private String power;
 

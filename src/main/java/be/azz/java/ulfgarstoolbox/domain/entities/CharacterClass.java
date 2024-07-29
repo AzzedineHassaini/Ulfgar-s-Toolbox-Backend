@@ -48,6 +48,7 @@ public class CharacterClass {
     @Column(name = "po_max_lvl1", nullable = false)
     private Integer maximumGoldAtCreation;
 
+    @Lob
     @Column(name = "description",columnDefinition = "TEXT")
     private String description;
 
