@@ -1,88 +1,59 @@
 package be.azz.java.ulfgarstoolbox.dal.specifications;
 
-import be.azz.java.ulfgarstoolbox.domain.entities.*;
 import be.azz.java.ulfgarstoolbox.domain.entities.tempTables.SpellDetails;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface SpellSpecifications {
 
     static Specification<SpellDetails> filterByParams(Map<String, String> params) {
-        Specification<SpellDetails> specification = Specification.where(null);
+        return (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
 
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            if (!entry.getValue().isBlank()) {
-                specification = specification.and(filterBy(entry.getKey(), entry.getValue()));
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                if (!entry.getValue().isBlank()) {
+                    Predicate predicate = filterBy(entry.getKey(), entry.getValue(), root, criteriaBuilder);
+                    if (predicate != null) {
+                        predicates.add(predicate);
+                    }
+                }
             }
-        }
 
-        return specification;
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
-    static Specification<SpellDetails> filterBy(String key, String value) {
-        return (root, query, criteriaBuilder) ->
-            switch (key) {
+    static Predicate filterBy(String key, String value, Root<SpellDetails> root, CriteriaBuilder criteriaBuilder) {
+        return switch (key) {
+            case "class" -> criteriaBuilder.like(root.get("classLevels"), "%" + value + "%");
+            case "domain" -> criteriaBuilder.like(root.get("domainLevels"), "%" + value + "%");
+            case "level" -> {
+                String exactPattern = ":" + value + ";";
+                String endPattern = ":" + value;
+                yield criteriaBuilder.or(
+                        criteriaBuilder.like(root.get("classLevels"), "%" + exactPattern + "%"),
+                        criteriaBuilder.like(root.get("classLevels"), "%" + endPattern),
+                        criteriaBuilder.like(root.get("domainLevels"), "%" + exactPattern + "%"),
+                        criteriaBuilder.like(root.get("domainLevels"), "%" + endPattern)
+                );
+            }
+            case "name" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + value.toLowerCase() + "%");
+            case "school" -> criteriaBuilder.equal(criteriaBuilder.lower(root.get("school")), value.toLowerCase());
+            case "description" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), "%" + value.toLowerCase() + "%");
+            case "effect" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("effect")), "%" + value.toLowerCase() + "%");
+            case "verbalComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%v%");
+            case "materialComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%m%");
+            case "somaticComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%g%");
+            case "focusComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%f%");
+            case "experienceComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%xp%");
 
-                case "class" -> {
-                    criteriaBuilder.like(root.get("classLevels"), "%" + value + "%");
-                }
-
-                case "domain" -> {
-                    criteriaBuilder.like(root.get("domainLevels"), "%" + value + "%");
-                }
-
-                case "level" -> {
-                    criteriaBuilder.like(root.get("domainLevels"), "%" + value + "%");
-                    criteriaBuilder.or(criteriaBuilder.like(root.get("classLevels"), "%" + value + "%"));
-                }
-
-//                case "school" -> {
-//                    Join<T, Spell> spellJoin = root.join("spell");
-//                    yield criteriaBuilder.equal(spellJoin.get("school"), value);
-//                }
-//
-//                case "verbalComponents" -> {
-//                    Join<T, Spell> spellJoin = root.join("spell");
-//                    yield criteriaBuilder.like(spellJoin.get("components"), "%V%");
-//                }
-//
-//                case "materialComponents" -> {
-//                    Join<T, Spell> spellJoin = root.join("spell");
-//                    yield criteriaBuilder.like(spellJoin.get("components"), "%M%");
-//                }
-//
-//                case "somaticComponents" -> {
-//                    Join<T, Spell> spellJoin = root.join("spell");
-//                    yield criteriaBuilder.like(spellJoin.get("components"), "%G%");
-//                }
-//
-//                case "focusComponents" -> {
-//                    Join<T, Spell> spellJoin = root.join("spell");
-//                    yield criteriaBuilder.like(spellJoin.get("components"), "%F%");
-//                }
-//
-//                case "divineFocusComponents" -> {
-//                    Join<T, Spell> spellJoin = root.join("spell");
-//                    yield criteriaBuilder.like(spellJoin.get("components"), "%FD%");
-//                }
-//
-//                case "experienceComponents" -> {
-//                    Join<T, Spell> spellJoin = root.join("spell");
-//                    yield criteriaBuilder.like(spellJoin.get("components"), "%XP%");
-//                }
-//
-//                case "effect" -> {
-//                    Join<T, Spell> spellJoin = root.join("spell");
-//                    yield criteriaBuilder.like(spellJoin.get("effect"), "%" + value + "%");
-//                }
-//
-//                case "description" -> {
-//                    Join<T, Spell> spellJoin = root.join("spell");
-//                    yield criteriaBuilder.like(spellJoin.get("description"), "%" + value + "%");
-//                }
-
-                default -> null;
-            };
+            default -> null;
+        };
     }
 }
