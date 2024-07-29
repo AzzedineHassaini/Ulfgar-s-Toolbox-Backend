@@ -32,11 +32,4 @@ public class BonusSpellServiceImpl implements IBonusSpellService {
                 .orElseThrow(BonusSpellNotFoundException::new);
         return bonusSpellMapper.fromEntity(bonusSpell);
     }
-
-    @Override
-    public BonusSpellResponse getByModifier(Integer modifier) {
-        BonusSpell bonusSpell = bonusSpellRepository.findByModifier(modifier)
-                .orElseThrow(BonusSpellNotFoundException::new);
-        return bonusSpellMapper.fromEntity(bonusSpell);
-    }
 }

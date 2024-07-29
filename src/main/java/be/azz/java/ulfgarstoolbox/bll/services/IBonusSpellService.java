@@ -10,6 +10,4 @@ public interface IBonusSpellService {
 
     BonusSpellResponse getByAbilityScore(Integer abilityScore);
 
-    BonusSpellResponse getByModifier(Integer modifier);
-
 }
