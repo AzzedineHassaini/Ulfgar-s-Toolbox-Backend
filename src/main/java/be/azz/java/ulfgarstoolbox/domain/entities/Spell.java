@@ -64,6 +64,13 @@ public class Spell {
     @OneToMany (mappedBy = "spell")
     private Set<SpellDomain> spellDomains;
 
+    @ManyToOne
+    @JoinColumn(name = "id_bouquin", nullable = false)
+    private RuleBook ruleBook;
+
+    @Column(name = "page")
+    private Integer page;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

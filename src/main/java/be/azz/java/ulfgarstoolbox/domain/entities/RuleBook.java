@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Entity
@@ -33,6 +34,9 @@ public class RuleBook {
 
     @Column(name = "link")
     private String link;
+
+    @OneToMany (mappedBy = "ruleBook")
+    private Set<Spell> spells;
 
     public RuleBook() {
 

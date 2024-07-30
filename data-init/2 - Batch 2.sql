@@ -1,6 +1,19 @@
 
 -- { DATA DEFINITION
 
+-- { Structure de la table `bouquin`
+DROP TABLE IF EXISTS `bouquin`;
+CREATE TABLE IF NOT EXISTS `bouquin`
+(
+    id bigint auto_increment primary key,
+    cover      varchar(255) null,
+    link       varchar(255) null,
+    nom        varchar(255) not null,
+    short_name varchar(255) not null
+);
+
+-- }
+
 -- { Structure de la table `sort`
 
 DROP TABLE IF EXISTS `sort`;
@@ -18,7 +31,10 @@ CREATE TABLE IF NOT EXISTS `sort` (
   `duree` text,
   `resistance_magie` text,
   `cibles` text,
-  PRIMARY KEY (`id`)
+  `id_bouquin` bigint,
+  `page` int,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_sort_bouquin` FOREIGN KEY (`id_bouquin`) REFERENCES `bouquin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=831 DEFAULT CHARSET=utf8mb4;
 
 -- }
