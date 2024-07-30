@@ -56,7 +56,7 @@ public class CharacterClass {
     @Column(name = "type_magie", length = 45)
     private String magicType;
 
-    @OneToMany (mappedBy = "characterClass")
+    @OneToMany (mappedBy = "characterClass", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SpellClass> spellClass;
 
     @Override

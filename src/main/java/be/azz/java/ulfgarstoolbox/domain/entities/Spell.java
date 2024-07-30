@@ -3,14 +3,16 @@ package be.azz.java.ulfgarstoolbox.domain.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Objects;
 import java.util.Set;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "sort")
 public class Spell {
@@ -31,7 +33,8 @@ public class Spell {
     @Column(name = "complement_ecole")
     private String schoolComplement;
 
-    @Column(name = "description")
+    @Lob
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "sauvegarde")
@@ -58,14 +61,14 @@ public class Spell {
     @Column(name = "cibles")
     private String targets;
 
-    @OneToMany (mappedBy = "spell")
+    @OneToMany (mappedBy = "spell", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SpellClass> spellClass;
 
-    @OneToMany (mappedBy = "spell")
+    @OneToMany (mappedBy = "spell", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SpellDomain> spellDomains;
 
     @ManyToOne
-    @JoinColumn(name = "id_bouquin", nullable = false)
+    @JoinColumn(name = "id_bouquin")
     private RuleBook ruleBook;
 
     @Column(name = "page")
