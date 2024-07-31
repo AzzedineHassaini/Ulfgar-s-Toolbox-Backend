@@ -5,6 +5,6 @@ import be.azz.java.ulfgarstoolbox.common.exceptions.AlreadyExistsException;
 public class UserAlreadyExistsException extends AlreadyExistsException {
 
     public UserAlreadyExistsException() {
-        super("User already exists !");
+        super("Un compte associé à cette adresse existe déja");
     }
 }
