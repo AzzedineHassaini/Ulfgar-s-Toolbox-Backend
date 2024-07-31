@@ -1,7 +1,7 @@
 package be.azz.java.ulfgarstoolbox.common.dtos.user.requests;
 
+import be.azz.java.ulfgarstoolbox.common.annotations.PasswordConstraint;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 /**
  * The request model for changing the user password
@@ -14,7 +14,7 @@ public record UserUpdatePasswordRequest(
         String oldPassword,
 
         @NotBlank(message = "password is required")
-        @Size(min = 8, message = "Password must be 8 characters minimum")
+        @PasswordConstraint
         String newPassword
 ) {
 }
