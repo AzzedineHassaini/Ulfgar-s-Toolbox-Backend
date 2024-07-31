@@ -1,9 +1,10 @@
 package be.azz.java.ulfgarstoolbox.common.dtos.spell.responses;
 
-public record SpellResponse(
+import lombok.Builder;
+
+@Builder
+public record SpellDetailsResponse(
         Integer id,
-        Integer classId,
-        Integer domainId,
         String name,
         Integer level,
         String school,
@@ -15,7 +16,9 @@ public record SpellResponse(
         String targets,
         String effect,
         String duration,
-        String magicResistance,
-        String components
+        String spellResistance,
+        String components,
+        String classLevels,
+        String domainLevels
 ) {
 }

@@ -20,13 +20,13 @@ public class AdminController {
 
     private final IAdminService adminService;
 
-    @PutMapping("/update/{id:^[0-9]$}")
+    @PutMapping("/update/{id:\\d+}")
     public ResponseEntity<UserShortResponse> updateUser(@PathVariable(name = "id") Long id,
                                                         @RequestBody @Valid UserUpdateRoleRequest request) {
         return ResponseEntity.ok(adminService.updateRole(id, request));
     }
 
-    @DeleteMapping("/delete/{id:^[0-9]$}")
+    @DeleteMapping("/delete/{id:\\d+}")
     public ResponseEntity<UserShortResponse> removeUser(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(adminService.deleteUser(id));
     }

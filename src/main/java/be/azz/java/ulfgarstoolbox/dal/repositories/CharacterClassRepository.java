@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CharacterClassRepository extends JpaRepository<CharacterClass, Integer>, JpaSpecificationExecutor<CharacterClass> {
+public interface CharacterClassRepository extends JpaRepository<CharacterClass, Integer> {
 
     @Query("SELECT c from CharacterClass c WHERE c.name = :className")
     Optional<CharacterClass> findByClassName(String className);

@@ -5,7 +5,7 @@ import be.azz.java.ulfgarstoolbox.common.dtos.user.requests.UserUpdateRoleReques
 import be.azz.java.ulfgarstoolbox.common.dtos.user.responses.UserShortResponse;
 import be.azz.java.ulfgarstoolbox.common.exceptions.auth.UserNotFoundException;
 import be.azz.java.ulfgarstoolbox.common.mappers.UserMapper;
-import be.azz.java.ulfgarstoolbox.dal.repository.UserRepository;
+import be.azz.java.ulfgarstoolbox.dal.repositories.UserRepository;
 import be.azz.java.ulfgarstoolbox.domain.entities.User;
 import be.azz.java.ulfgarstoolbox.domain.enums.Role;
 import lombok.RequiredArgsConstructor;
