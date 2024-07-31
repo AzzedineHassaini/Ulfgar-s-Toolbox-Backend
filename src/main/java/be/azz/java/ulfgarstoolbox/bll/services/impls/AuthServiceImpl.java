@@ -4,9 +4,8 @@ import be.azz.java.ulfgarstoolbox.bll.services.IAuthService;
 import be.azz.java.ulfgarstoolbox.common.dtos.auth.requests.LoginRequest;
 import be.azz.java.ulfgarstoolbox.common.dtos.auth.requests.RegisterRequest;
 import be.azz.java.ulfgarstoolbox.common.dtos.auth.responses.UserTokenResponse;
-import be.azz.java.ulfgarstoolbox.common.exceptions.auth.InvalidPasswordException;
+import be.azz.java.ulfgarstoolbox.common.exceptions.auth.LoginFailedException;
 import be.azz.java.ulfgarstoolbox.common.exceptions.auth.UserAlreadyExistsException;
-import be.azz.java.ulfgarstoolbox.common.exceptions.auth.UserNotFoundException;
 import be.azz.java.ulfgarstoolbox.config.utils.JwtUtils;
 import be.azz.java.ulfgarstoolbox.dal.repositories.UserRepository;
 import be.azz.java.ulfgarstoolbox.domain.entities.User;
@@ -37,10 +36,10 @@ public class AuthServiceImpl implements UserDetailsService, IAuthService {
     @Override
     public UserTokenResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.email())
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(LoginFailedException::new);
 
         if (!passwordEncoder.matches(request.password(), user.getPassword())) {
-            throw new InvalidPasswordException();
+            throw new LoginFailedException();
         }
 
         userDetailsChecker.check(user);

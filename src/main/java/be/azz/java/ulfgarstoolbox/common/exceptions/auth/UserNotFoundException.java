@@ -5,6 +5,6 @@ import be.azz.java.ulfgarstoolbox.common.exceptions.NotFoundException;
 public class UserNotFoundException extends NotFoundException {
 
     public UserNotFoundException() {
-        super("User does not exist !");
+        super("Utilisateur introuvable");
     }
 }
