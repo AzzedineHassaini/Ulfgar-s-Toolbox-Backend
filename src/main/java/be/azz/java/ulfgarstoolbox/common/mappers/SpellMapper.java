@@ -6,20 +6,21 @@ import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellDetailsRespon
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellShortResponse;
 import be.azz.java.ulfgarstoolbox.domain.entities.Spell;
 import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetails;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
 @Mapper(componentModel = "spring")
 public interface SpellMapper {
 
+    @Named("toDetails")
     SpellDetailsResponse fromEntityToDetails(SpellDetails spellDetails);
 
+    @Named("toShort")
     SpellShortResponse fromEntityToShort(SpellDetails spellDetails);
 
     @Mapping(source = "page.content", target = "content", defaultExpression = "java(java.util.Collections.emptyList())")
     @Mapping(source = "page.size", target = "pageSize")
+    @Mapping(source = "page.content", target = "content", qualifiedByName = "toShort")
     PagedResponse<SpellShortResponse> fromPage(Page<SpellDetails> page);
 
     @Mapping(target = "id", ignore = true)
@@ -34,5 +35,4 @@ public interface SpellMapper {
             SpellRequest request,
             @MappingTarget Spell spell
     );
-
 }
