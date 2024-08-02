@@ -44,43 +44,18 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 
-### Built With
+### Tools
 
 * [![Java][Java.com]][Java-url]
 * [![Spring][Spring.io]][Spring-url]
 * [![MySQL][MySQL.com]][MySQL-url]
+* [![Jira][Jira.com]][Jira-url]
+* [![Postman][Postman.com]][Postman-url]
+* [![Draw.io][draw.io]][draw-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -91,13 +66,52 @@
 
 ### Installation
 
-1. Clone the repo
+<b>Clone the repo</b>
    ```sh
    git clone https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend.git
    ```
-2. Create an application.yml file based on application.yml.example
-3. Fill the application.yml file with your DB name, your DB connection information,...
-4. Run the SQL scripts located in the data-init folder
+<b> Add environment variables in your IDE</b>
+    <br />
+  ⚠️ Make sure to update the variables according to your setup ⚠️
+    <br />
+	In IntelliJ IDEA, you can add environment variables by following these steps:
+
+1. Go to `Run` > `Edit Configurations...`
+2. Click on the `Environment Variables` field
+3. If you don't have any environment variables yet, click on the `Modify options` button
+4. You will see under `Operating System` -> `Environment Variables` click on it
+5. Copy-paste the environment variables there (and possibly update them according to your setup)
+
+Copy-paste the following environment variables in your IDE:
+
+	### Server Configuration ###
+	SERVER_PORT=8080
+	
+	### Database Configuration ###
+	DATABASE_URL=jdbc:mysql://localhost:3066/dnd35
+	DATABASE_USERNAME=root
+	DATABASE_PASSWORD=root
+	DATABASE_DRIVER=com.mysql.cj.jdbc.Driver
+	
+	# This will every time drop and create the database schema
+	DATABASE_DDL_AUTO=update
+	
+	DATABASE_SHOW_SQL=true
+	DATABASE_FORMAT_SQL=true
+    DATABASE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+    DATABASE_APPLY_VALIDATOR=false
+	
+	### JWT Configuration ###
+	JWT_ALGORITHM=HmacSHA256
+	
+	# Secret key for JWT that needs to be more than 256 bits (meaning 32 characters or more)
+	JWT_SECRET=AZZ_PROJECT_SECRET_KEY_1234567890
+	
+	# 24 hours expiration time for JWT in milliseconds
+	JWT_EXPIRE_AT=86400000
+	
+	# Front End Cors
+	ANGULAR_ALLOWED_ORIGINS=http://localhost:4200
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -141,6 +155,12 @@ Project Link: [https://github.com/AzzedineHassaini/Ulfgar-s-Toolbox-Backend](htt
 [Spring-url]: https://spring.io/
 [MySQL.com]: https://img.shields.io/badge/MySQL-0769AD?style=for-the-badge&logo=MySQL&logoColor=white
 [MySQL-url]: https://www.mysql.com/
-[Java.com]: https://img.shields.io/badge/Java-0769AD?style=for-the-badge&logo=Java&logoColor=white
+[Java.com]: https://img.shields.io/badge/Java-0769AD?style=for-the-badge&logo=java&logoColor=white
 [Java-url]: https://www.java.com/
+[Jira.com]: https://img.shields.io/badge/Jira-0769AD?style=for-the-badge&logo=jira&logoColor=white
+[Jira-url]: https://www.jira.com/
+[Postman.com]: https://img.shields.io/badge/Postman-0769AD?style=for-the-badge&logo=Postman&logoColor=white
+[Postman-url]: https://www.postman.com/
+[draw.io]: https://img.shields.io/badge/Draw.io-0769AD?style=for-the-badge&logo=diagramsdotnet&logoColor=white
+[draw-url]: https://app.diagrams.net/
 
