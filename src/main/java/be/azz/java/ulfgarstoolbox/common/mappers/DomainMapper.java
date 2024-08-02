@@ -7,9 +7,10 @@ import be.azz.java.ulfgarstoolbox.domain.entities.Domain;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.data.domain.Page;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface DomainMapper {
 
     @Mapping(target = "id", ignore = true)

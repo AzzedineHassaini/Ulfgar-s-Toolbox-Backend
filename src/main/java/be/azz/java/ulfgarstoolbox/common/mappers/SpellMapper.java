@@ -9,7 +9,7 @@ import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetails;
 import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SpellMapper {
 
     @Named("toDetails")

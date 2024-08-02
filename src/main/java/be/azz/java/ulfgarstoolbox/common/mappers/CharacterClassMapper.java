@@ -6,9 +6,10 @@ import be.azz.java.ulfgarstoolbox.common.dtos.characterClass.responses.Character
 import be.azz.java.ulfgarstoolbox.domain.entities.CharacterClass;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.data.domain.Page;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CharacterClassMapper {
 
     CharacterClassResponse fromEntity(CharacterClass entity);

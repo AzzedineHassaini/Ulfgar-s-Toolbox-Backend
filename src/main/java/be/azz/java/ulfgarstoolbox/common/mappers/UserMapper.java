@@ -4,8 +4,9 @@ import be.azz.java.ulfgarstoolbox.common.dtos.user.responses.UserShortResponse;
 import be.azz.java.ulfgarstoolbox.domain.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
     @Mapping(source = "id", target = "id")
