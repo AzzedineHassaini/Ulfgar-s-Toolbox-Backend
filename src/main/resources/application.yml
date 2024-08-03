@@ -36,6 +36,6 @@ angular:
 
 app:
   books:
-    directory: /app/books
+    directory: /books
   images:
-    directory: /app/images
+    directory: /images
