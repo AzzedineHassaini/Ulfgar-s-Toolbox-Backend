@@ -33,3 +33,9 @@ jwt:
 angular:
   cors:
     allowed-origins: ${ANGULAR_ALLOWED_ORIGINS}
+
+app:
+  books:
+    directory: /app/books
+  images:
+    directory: /app/images
