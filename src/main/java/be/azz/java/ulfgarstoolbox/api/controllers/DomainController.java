@@ -4,6 +4,7 @@ import be.azz.java.ulfgarstoolbox.bll.services.IDomainService;
 import be.azz.java.ulfgarstoolbox.common.dtos.PagedResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.domain.requests.DomainRequest;
 import be.azz.java.ulfgarstoolbox.common.dtos.domain.responses.DomainResponse;
+import be.azz.java.ulfgarstoolbox.config.utils.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/domains")
+@RequestMapping(Constants.API_URL + "/domains")
 public class DomainController {
 
     private final IDomainService domainService;

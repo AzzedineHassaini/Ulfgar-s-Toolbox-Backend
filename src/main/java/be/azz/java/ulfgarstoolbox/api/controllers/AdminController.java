@@ -4,6 +4,7 @@ import be.azz.java.ulfgarstoolbox.bll.services.IAdminService;
 import be.azz.java.ulfgarstoolbox.common.dtos.PagedResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.user.requests.UserUpdateRoleRequest;
 import be.azz.java.ulfgarstoolbox.common.dtos.user.responses.UserShortResponse;
+import be.azz.java.ulfgarstoolbox.config.utils.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/admin")
+@RequestMapping(Constants.API_URL + "/admin")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
 

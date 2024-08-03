@@ -3,6 +3,7 @@ package be.azz.java.ulfgarstoolbox.api.controllers;
 import be.azz.java.ulfgarstoolbox.bll.services.IRuleBookService;
 import be.azz.java.ulfgarstoolbox.common.dtos.ruleBook.RuleBookResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.ruleBook.RuleBookShortResponse;
+import be.azz.java.ulfgarstoolbox.config.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/rulebooks")
+@RequestMapping(Constants.API_URL + "/rulebooks")
 public class RuleBookController {
 
     private final IRuleBookService ruleBookService;

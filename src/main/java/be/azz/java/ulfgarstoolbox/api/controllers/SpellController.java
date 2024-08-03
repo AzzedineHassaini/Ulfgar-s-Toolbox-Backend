@@ -6,6 +6,7 @@ import be.azz.java.ulfgarstoolbox.common.dtos.PagedResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.requests.SpellRequest;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellDetailsResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellShortResponse;
+import be.azz.java.ulfgarstoolbox.config.utils.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/spells")
+@RequestMapping(Constants.API_URL + "/spells")
 public class SpellController {
 
     private final ISpellDetailsService spellDetailsService;

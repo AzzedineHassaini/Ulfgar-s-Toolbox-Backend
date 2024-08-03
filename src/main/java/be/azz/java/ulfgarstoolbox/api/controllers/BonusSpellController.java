@@ -2,6 +2,7 @@ package be.azz.java.ulfgarstoolbox.api.controllers;
 
 import be.azz.java.ulfgarstoolbox.bll.services.IBonusSpellService;
 import be.azz.java.ulfgarstoolbox.common.dtos.bonusSpell.responses.BonusSpellResponse;
+import be.azz.java.ulfgarstoolbox.config.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/bonusSpell")
+@RequestMapping(Constants.API_URL + "/bonusSpell")
 public class BonusSpellController {
 
     private final IBonusSpellService bonusSpellService;

@@ -4,6 +4,7 @@ import be.azz.java.ulfgarstoolbox.bll.services.ICharacterClassService;
 import be.azz.java.ulfgarstoolbox.common.dtos.PagedResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.characterClass.responses.CharacterClassResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.characterClass.responses.CharacterClassShortResponse;
+import be.azz.java.ulfgarstoolbox.config.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/classes")
+@RequestMapping(Constants.API_URL + "/classes")
 public class CharacterClassController {
 
     private final ICharacterClassService characterClassService;
