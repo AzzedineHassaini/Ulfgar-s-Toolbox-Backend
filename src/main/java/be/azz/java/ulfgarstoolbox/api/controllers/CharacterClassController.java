@@ -7,7 +7,6 @@ import be.azz.java.ulfgarstoolbox.common.dtos.characterClass.responses.Character
 import be.azz.java.ulfgarstoolbox.config.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +16,6 @@ public class CharacterClassController {
 
     private final ICharacterClassService characterClassService;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
     @GetMapping
     public ResponseEntity<PagedResponse<CharacterClassShortResponse>> getAllClasses(
             @RequestParam(defaultValue = "0") int page,
@@ -26,7 +24,6 @@ public class CharacterClassController {
         return ResponseEntity.ok(characterClassService.findAll(page, pageSize));
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
     @GetMapping("/{id:\\d+}")
     public ResponseEntity<CharacterClassResponse> getById(
             @PathVariable(name = "id") Integer id)

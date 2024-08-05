@@ -5,7 +5,6 @@ import be.azz.java.ulfgarstoolbox.common.dtos.bonusSpell.responses.BonusSpellRes
 import be.azz.java.ulfgarstoolbox.config.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +16,11 @@ public class BonusSpellController {
 
     private final IBonusSpellService bonusSpellService;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
     @GetMapping
     public ResponseEntity<List<BonusSpellResponse>> getAllBonusSpells() {
         return ResponseEntity.ok(bonusSpellService.getAll());
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
     @GetMapping("/{abilityScore:\\d+}")
     public ResponseEntity<BonusSpellResponse> getByAbilityScore(
             @PathVariable Integer abilityScore
