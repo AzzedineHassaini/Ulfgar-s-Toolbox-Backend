@@ -9,13 +9,15 @@ import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetails;
 import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, imports = {SpellMapper.class})
 public interface SpellMapper {
 
     @Named("toDetails")
+    @Mapping(target = "levels", expression = "java(combineLevels(spellDetails.getClassLevels(), spellDetails.getDomainLevels()))")
     SpellDetailsResponse fromEntityToDetails(SpellDetails spellDetails);
 
     @Named("toShort")
+    @Mapping(target = "levels", expression = "java(combineLevels(spellDetails.getClassLevels(), spellDetails.getDomainLevels()))")
     SpellShortResponse fromEntityToShort(SpellDetails spellDetails);
 
     @Mapping(source = "page.content", target = "content", defaultExpression = "java(java.util.Collections.emptyList())", qualifiedByName = "toShort")
@@ -34,4 +36,18 @@ public interface SpellMapper {
             SpellRequest request,
             @MappingTarget Spell spell
     );
+
+    default String combineLevels(String classLevels, String domainLevels) {
+        StringBuilder combined = new StringBuilder();
+        if (classLevels != null && !classLevels.isEmpty()) {
+            combined.append(classLevels);
+        }
+        if (domainLevels != null && !domainLevels.isEmpty()) {
+            if (!combined.isEmpty()) {
+                combined.append(";");
+            }
+            combined.append(domainLevels);
+        }
+        return combined.toString();
+    }
 }
