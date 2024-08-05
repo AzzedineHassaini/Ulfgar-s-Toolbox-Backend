@@ -6,7 +6,7 @@ import lombok.Builder;
 public record SpellDetailsResponse(
         Integer id,
         String name,
-        Integer level,
+        String levels,
         String school,
         String schoolComplement,
         String description,
@@ -17,8 +17,6 @@ public record SpellDetailsResponse(
         String effect,
         String duration,
         String spellResistance,
-        String components,
-        String classLevels,
-        String domainLevels
+        String components
 ) {
 }
