@@ -20,7 +20,6 @@ public class DomainController {
 
     private final IDomainService domainService;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
     @GetMapping
     public ResponseEntity<PagedResponse<DomainResponse>> getAllDomains(
             @RequestParam Map<String, String> params,
@@ -30,7 +29,6 @@ public class DomainController {
         return ResponseEntity.ok(domainService.findAll(params, page, pageSize));
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
     @GetMapping("/{id:\\d+}")
     public ResponseEntity<DomainResponse> getDomainById(@PathVariable("id") Integer id){
         return ResponseEntity.ok(domainService.findById(id));
