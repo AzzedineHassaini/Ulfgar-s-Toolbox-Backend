@@ -23,7 +23,6 @@ public class SpellController {
     private final ISpellDetailsService spellDetailsService;
     private final ISpellService spellService;
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
     @GetMapping
     public ResponseEntity<PagedResponse<SpellShortResponse>> getAllSpells(
             @RequestParam Map<String, String> params,
@@ -33,7 +32,6 @@ public class SpellController {
         return ResponseEntity.ok(spellDetailsService.getAllSpells(params, page, pageSize));
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR','USER')")
     @GetMapping("/{id:\\d+}")
     public ResponseEntity<SpellDetailsResponse> getSpellDetails(
             @PathVariable Integer id
