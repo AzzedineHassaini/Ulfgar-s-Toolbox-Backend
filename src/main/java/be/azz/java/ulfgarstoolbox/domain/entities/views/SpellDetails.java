@@ -47,6 +47,18 @@ public class SpellDetails {
     @Column(name = "resistance_magie")
     private String spellResistance;
 
+    @Column(name = "id_bouquin")
+    private Long idRuleBook;
+
+    @Column(name = "page")
+    private Integer page;
+
+    @Column(name = "nom_bouquin")
+    private String bookName;
+
+    @Column(name = "short_name_bouquin")
+    private String bookShortName;
+
     @Column(name = "cibles")
     private String targets;
 

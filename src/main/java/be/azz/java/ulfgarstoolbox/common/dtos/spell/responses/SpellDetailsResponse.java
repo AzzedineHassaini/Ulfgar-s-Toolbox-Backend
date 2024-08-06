@@ -1,12 +1,12 @@
 package be.azz.java.ulfgarstoolbox.common.dtos.spell.responses;
 
+import jakarta.persistence.Column;
 import lombok.Builder;
 
 @Builder
 public record SpellDetailsResponse(
         Integer id,
         String name,
-        String levels,
         String school,
         String schoolComplement,
         String description,
@@ -17,6 +17,12 @@ public record SpellDetailsResponse(
         String effect,
         String duration,
         String spellResistance,
-        String components
+        String components,
+        Long idRuleBook,
+        Integer page,
+        String bookName,
+        String bookShortName,
+        String classLevels,
+        String domainLevels
 ) {
 }

@@ -13,11 +13,9 @@ import org.springframework.data.domain.Page;
 public interface SpellMapper {
 
     @Named("toDetails")
-    @Mapping(target = "levels", expression = "java(combineLevels(spellDetails.getClassLevels(), spellDetails.getDomainLevels()))")
     SpellDetailsResponse fromEntityToDetails(SpellDetails spellDetails);
 
     @Named("toShort")
-    @Mapping(target = "levels", expression = "java(combineLevels(spellDetails.getClassLevels(), spellDetails.getDomainLevels()))")
     SpellShortResponse fromEntityToShort(SpellDetails spellDetails);
 
     @Mapping(source = "page.content", target = "content", defaultExpression = "java(java.util.Collections.emptyList())", qualifiedByName = "toShort")
