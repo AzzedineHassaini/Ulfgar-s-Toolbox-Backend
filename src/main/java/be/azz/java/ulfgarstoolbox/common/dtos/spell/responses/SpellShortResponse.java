@@ -6,6 +6,7 @@ public record SpellShortResponse(
         String school,
         String components,
         String classLevels,
-        String domainLevels
+        String domainLevels,
+        String schoolImage
 ) {
 }
