@@ -14,8 +14,8 @@ public interface CharacterClassMapper {
 
     CharacterClassResponse fromEntity(CharacterClass entity);
 
-    @Mapping(source = "page.content", target = "content", defaultExpression = "java(java.util.Collections.emptyList())")
-    @Mapping(source = "page.size", target = "pageSize")
+    @Mapping(source = "content", target = "content", defaultExpression = "java(java.util.Collections.emptyList())")
+    @Mapping(source = "size", target = "pageSize")
     PagedResponse<CharacterClassShortResponse> fromPage(Page<CharacterClass> page);
 
 }

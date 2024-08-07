@@ -18,8 +18,8 @@ public interface SpellMapper {
     @Named("toShort")
     SpellShortResponse fromEntityToShort(SpellDetails spellDetails);
 
-    @Mapping(source = "page.content", target = "content", defaultExpression = "java(java.util.Collections.emptyList())", qualifiedByName = "toShort")
-    @Mapping(source = "page.size", target = "pageSize")
+    @Mapping(source = "content", target = "content", defaultExpression = "java(java.util.Collections.emptyList())", qualifiedByName = "toShort")
+    @Mapping(source = "size", target = "pageSize")
     PagedResponse<SpellShortResponse> fromPage(Page<SpellDetails> page);
 
     @Mapping(target = "id", ignore = true)

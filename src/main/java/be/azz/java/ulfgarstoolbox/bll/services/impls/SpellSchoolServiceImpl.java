@@ -6,6 +6,7 @@ import be.azz.java.ulfgarstoolbox.common.dtos.spellSchool.responses.SpellSchoolS
 import be.azz.java.ulfgarstoolbox.common.exceptions.spells.SpellNotFoundException;
 import be.azz.java.ulfgarstoolbox.common.mappers.SpellSchoolMapper;
 import be.azz.java.ulfgarstoolbox.dal.repositories.SpellSchoolRepository;
+import be.azz.java.ulfgarstoolbox.domain.entities.SpellSchool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,8 @@ public class SpellSchoolServiceImpl implements ISpellSchoolService {
 
     @Override
     public List<SpellSchoolShortResponse> getAllSpellSchools() {
-        return spellSchoolRepository.findAll().stream().map(spellSchoolMapper::fromEntityToShort).toList();
+        List<SpellSchool> spellSchools = spellSchoolRepository.findAll();
+        return spellSchools.stream().map(spellSchoolMapper::fromEntityToShort).toList();
     }
 
     @Override

@@ -3,6 +3,7 @@ package be.azz.java.ulfgarstoolbox.api.controllers;
 import be.azz.java.ulfgarstoolbox.bll.services.ISpellSchoolService;
 import be.azz.java.ulfgarstoolbox.common.dtos.spellSchool.responses.SpellSchoolResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spellSchool.responses.SpellSchoolShortResponse;
+import be.azz.java.ulfgarstoolbox.config.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("spell-school")
+@RequestMapping(Constants.API_URL + "/spell-school")
 public class SpellSchoolController {
 
     private final ISpellSchoolService spellSchoolService;

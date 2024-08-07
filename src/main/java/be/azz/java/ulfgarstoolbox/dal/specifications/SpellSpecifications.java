@@ -67,11 +67,10 @@ public interface SpellSpecifications {
                     String[] schools = value.split(",");
                     List<Predicate> predicates = new ArrayList<>();
                     for (String school : schools) {
-                        predicates.add(criteriaBuilder.equal(root.get("school"), "%" + school.trim() + "%"));
+                        predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(root.get("school")), school.trim().toLowerCase()));
                     }
                     yield criteriaBuilder.or(predicates.toArray(new Predicate[0]));
                 }
-//                criteriaBuilder.equal(criteriaBuilder.lower(root.get("school")), value.toLowerCase());
             }
             case "description" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), "%" + value.toLowerCase() + "%");
             case "effect" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("effect")), "%" + value.toLowerCase() + "%");
