@@ -62,7 +62,16 @@ public interface SpellSpecifications {
                 yield criteriaBuilder.or(predicates.toArray(new Predicate[0]));
             }
             case "name" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + value.toLowerCase() + "%");
-            case "school" -> criteriaBuilder.equal(criteriaBuilder.lower(root.get("school")), value.toLowerCase());
+            case "school" -> {
+                {
+                    String[] schools = value.split(",");
+                    List<Predicate> predicates = new ArrayList<>();
+                    for (String school : schools) {
+                        predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(root.get("school")), school.trim().toLowerCase()));
+                    }
+                    yield criteriaBuilder.or(predicates.toArray(new Predicate[0]));
+                }
+            }
             case "description" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), "%" + value.toLowerCase() + "%");
             case "effect" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("effect")), "%" + value.toLowerCase() + "%");
             case "verbalComponents" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("components")), "%v%");

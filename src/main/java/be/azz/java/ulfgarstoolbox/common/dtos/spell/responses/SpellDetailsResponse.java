@@ -1,6 +1,5 @@
 package be.azz.java.ulfgarstoolbox.common.dtos.spell.responses;
 
-import jakarta.persistence.Column;
 import lombok.Builder;
 
 @Builder
@@ -23,6 +22,7 @@ public record SpellDetailsResponse(
         String bookName,
         String bookShortName,
         String classLevels,
-        String domainLevels
+        String domainLevels,
+        String schoolImage
 ) {
 }

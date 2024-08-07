@@ -56,6 +56,9 @@ public class CharacterClass {
     @Column(name = "type_magie", length = 45)
     private String magicType;
 
+    @Column(name = "image")
+    private String image;
+
     @OneToMany (mappedBy = "characterClass", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SpellClass> spellClass;
 

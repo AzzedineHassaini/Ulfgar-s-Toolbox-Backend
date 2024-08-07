@@ -57,7 +57,7 @@ public class AuthServiceImpl implements UserDetailsService, IAuthService {
 
         String encodedPassword = passwordEncoder.encode(request.password());
 
-        User user = new User(request.email(), request.pseudo(), encodedPassword, role);
+        User user = new User(request.email(), request.pseudo(), encodedPassword, role, request.image());
 
         userRepository.save(user);
 

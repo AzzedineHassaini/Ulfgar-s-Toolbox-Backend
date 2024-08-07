@@ -5,8 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "vue_spell_details")  // Nom de la table temporaire créée par la procédure stockée
 public class SpellDetails {
@@ -67,4 +70,7 @@ public class SpellDetails {
 
     @Column(name = "domaines_niveaux", columnDefinition = "TEXT")
     private String domainLevels;
+
+    @Column(name = "ecole_image")
+    private String schoolImage;
 }
