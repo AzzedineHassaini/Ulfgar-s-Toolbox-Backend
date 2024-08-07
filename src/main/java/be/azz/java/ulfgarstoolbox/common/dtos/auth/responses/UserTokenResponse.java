@@ -14,7 +14,8 @@ public record UserTokenResponse(
                         user.getId(),
                         user.getEmail(),
                         user.getPseudo(),
-                        user.getRole().toString()
+                        user.getRole().toString(),
+                        user.getImage()
                 ),
                 token
         );
