@@ -39,14 +39,18 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "image")
+    private String image;
+
     protected User() {}
 
-    public User(String email, String pseudo, String password, Role role) {
+    public User(String email, String pseudo, String password, Role role, String image) {
         this();
         this.email = email;
         this.password = password;
         this.pseudo = pseudo;
         this.role = role;
+        this.image = image;
     }
 
     @Override

@@ -4,6 +4,7 @@ public record UserShortResponse(
         Long id,
         String email,
         String pseudo,
-        String role
+        String role,
+        String image
 ) { }
 

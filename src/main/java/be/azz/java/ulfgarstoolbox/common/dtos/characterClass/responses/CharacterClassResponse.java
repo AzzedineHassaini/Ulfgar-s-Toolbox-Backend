@@ -9,6 +9,7 @@ public record CharacterClassResponse(
         String magicType,
         Integer minimumGoldAtCreation,
         Integer maximumGoldAtCreation,
-        String description
+        String description,
+        String image
 ) {
 }

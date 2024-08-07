@@ -35,6 +35,11 @@ public class StaticFileController {
         return getStaticFile(fileName);
     }
 
+    @GetMapping("/images/{fileName}")
+    public ResponseEntity<FileSystemResource> getImage(@PathVariable String fileName) {
+        return getStaticFile("images/" + fileName);
+    }
+
     private ResponseEntity<FileSystemResource> getStaticFile(String fileName) {
         Path publicDirectory = Paths.get(".").toAbsolutePath();
         try {
