@@ -31,17 +31,35 @@ public interface SpellSpecifications {
 
     static Predicate filterBy(String key, String value, Root<SpellDetails> root, CriteriaBuilder criteriaBuilder) {
         return switch (key) {
-            case "class" -> criteriaBuilder.like(root.get("classLevels"), "%" + value + "%");
-            case "domain" -> criteriaBuilder.like(root.get("domainLevels"), "%" + value + "%");
-            case "level" -> {
-                String exactPattern = ":" + value + ";";
-                String endPattern = ":" + value;
-                yield criteriaBuilder.or(
-                        criteriaBuilder.like(root.get("classLevels"), "%" + exactPattern + "%"),
-                        criteriaBuilder.like(root.get("classLevels"), "%" + endPattern),
-                        criteriaBuilder.like(root.get("domainLevels"), "%" + exactPattern + "%"),
-                        criteriaBuilder.like(root.get("domainLevels"), "%" + endPattern)
-                );
+            case "class" -> {
+                String[] classes = value.split(",");
+                List<Predicate> predicates = new ArrayList<>();
+                for (String cls : classes) {
+                    predicates.add(criteriaBuilder.like(root.get("classLevels"), "%" + cls.trim() + ":%"));
+                }
+                yield criteriaBuilder.or(predicates.toArray(new Predicate[0]));
+            }
+            case "domain" -> {
+                String[] domains = value.split(",");
+                List<Predicate> predicates = new ArrayList<>();
+                for (String domain : domains) {
+                    predicates.add(criteriaBuilder.like(root.get("domainLevels"), "%" + domain.trim() + ":%"));
+                }
+                yield criteriaBuilder.or(predicates.toArray(new Predicate[0]));
+            }
+            case "minLevel", "maxLevel" -> {
+                int minLevel = key.equals("minLevel") ? Integer.parseInt(value) : 0;
+                int maxLevel = key.equals("maxLevel") ? Integer.parseInt(value) : 9;
+                List<Predicate> predicates = new ArrayList<>();
+                for (int i = minLevel; i <= maxLevel; i++) {
+                    String levelPattern = ":" + i + ";";
+                    String endLevelPattern = ":" + i;
+                    predicates.add(criteriaBuilder.like(root.get("classLevels"), "%" + levelPattern + "%"));
+                    predicates.add(criteriaBuilder.like(root.get("classLevels"), "%" + endLevelPattern));
+                    predicates.add(criteriaBuilder.like(root.get("domainLevels"), "%" + levelPattern + "%"));
+                    predicates.add(criteriaBuilder.like(root.get("domainLevels"), "%" + endLevelPattern));
+                }
+                yield criteriaBuilder.or(predicates.toArray(new Predicate[0]));
             }
             case "name" -> criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + value.toLowerCase() + "%");
             case "school" -> criteriaBuilder.equal(criteriaBuilder.lower(root.get("school")), value.toLowerCase());
