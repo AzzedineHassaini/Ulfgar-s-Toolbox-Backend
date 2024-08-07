@@ -16,6 +16,8 @@ public record RegisterRequest(
         String password,
 
         @NotBlank(message = "There must be a pseudo")
-        String pseudo
+        String pseudo,
+
+        String image
 ) {
 }
