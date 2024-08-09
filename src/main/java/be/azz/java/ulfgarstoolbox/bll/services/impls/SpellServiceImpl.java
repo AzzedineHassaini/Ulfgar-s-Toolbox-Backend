@@ -8,10 +8,12 @@ import be.azz.java.ulfgarstoolbox.common.exceptions.characterClass.CharacterClas
 import be.azz.java.ulfgarstoolbox.common.exceptions.domain.DomainNotFoundException;
 import be.azz.java.ulfgarstoolbox.common.exceptions.spells.SpellNotFoundException;
 import be.azz.java.ulfgarstoolbox.common.mappers.SpellMapper;
+import be.azz.java.ulfgarstoolbox.config.utils.SQLSessionUtils;
 import be.azz.java.ulfgarstoolbox.dal.repositories.*;
 import be.azz.java.ulfgarstoolbox.domain.entities.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SpellServiceImpl implements ISpellService {
 
+    private final SQLSessionUtils sqlSessionUtil;
     private final SpellRepository spellRepository;
     private final CharacterClassRepository characterClassRepository;
     private final DomainRepository domainRepository;
@@ -31,6 +34,9 @@ public class SpellServiceImpl implements ISpellService {
     @Override
     @Transactional
     public SpellDetailsResponse addSpell(SpellRequest request) {
+        Long userId = getCurrentUserId();
+        sqlSessionUtil.setCurrentUserId(userId);
+
         Spell newSpell = spellMapper.toEntity(request);
         newSpell.setSpellClass(getSpellClassFromRequest(request, newSpell));
         newSpell.setSpellDomains(getSpellDomainFromRequest(request, newSpell));
@@ -41,6 +47,9 @@ public class SpellServiceImpl implements ISpellService {
     @Override
     @Transactional
     public SpellDetailsResponse updateSpell(Integer id, SpellRequest request) {
+        Long userId = getCurrentUserId();
+        sqlSessionUtil.setCurrentUserId(userId);
+
         Spell spellToUpdate = spellRepository.findById(id).orElseThrow(SpellNotFoundException::new);
         spellMapper.updateEntityFromRequest(request, spellToUpdate);
 
@@ -57,6 +66,9 @@ public class SpellServiceImpl implements ISpellService {
     @Override
     @Transactional
     public SpellDetailsResponse deleteSpell(Integer id) {
+        Long userId = getCurrentUserId();
+        sqlSessionUtil.setCurrentUserId(userId);
+
         Spell spell = spellRepository.findById(id).orElseThrow(SpellNotFoundException::new);
         SpellDetailsResponse spellDetailsResponse = spellDetailsService.getSpellDetails(id);
         // Les entités de SpellClass et SpellDomain liés à ce spell seront supprimées par cascade
@@ -134,6 +146,11 @@ public class SpellServiceImpl implements ISpellService {
                     return spellDomain;
                 })
                 .collect(Collectors.toSet());
+    }
+
+    private Long getCurrentUserId() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user.getId();
     }
 
 }
