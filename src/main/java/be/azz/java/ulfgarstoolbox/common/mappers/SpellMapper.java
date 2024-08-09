@@ -3,9 +3,11 @@ package be.azz.java.ulfgarstoolbox.common.mappers;
 import be.azz.java.ulfgarstoolbox.common.dtos.PagedResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.requests.SpellRequest;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellDetailsResponse;
+import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellHistoryResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellShortResponse;
 import be.azz.java.ulfgarstoolbox.domain.entities.Spell;
 import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetails;
+import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellHistory;
 import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 
@@ -18,9 +20,16 @@ public interface SpellMapper {
     @Named("toShort")
     SpellShortResponse fromEntityToShort(SpellDetails spellDetails);
 
+    @Named("toHistory")
+    SpellHistoryResponse fromEntity(SpellHistory spellHistory);
+
     @Mapping(source = "content", target = "content", defaultExpression = "java(java.util.Collections.emptyList())", qualifiedByName = "toShort")
     @Mapping(source = "size", target = "pageSize")
     PagedResponse<SpellShortResponse> fromPage(Page<SpellDetails> page);
+
+    @Mapping(source = "content", target = "content", defaultExpression = "java(java.util.Collections.emptyList())", qualifiedByName = "toHistory")
+    @Mapping(source = "size", target = "pageSize")
+    PagedResponse<SpellHistoryResponse> fromPageToHistory(Page<SpellHistory> page);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "spellClass", ignore = true)
