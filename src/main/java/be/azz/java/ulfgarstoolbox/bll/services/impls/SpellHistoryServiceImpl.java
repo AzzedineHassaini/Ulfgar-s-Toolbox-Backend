@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +25,15 @@ public class SpellHistoryServiceImpl implements ISpellHistoryService {
     private final SpellMapper spellMapper;
 
     @Override
-    public PagedResponse<SpellHistoryResponse> getSpellHistory(Map<String, String> params, int page, int pageSize) {
+    public PagedResponse<SpellHistoryResponse> getSpellHistory(Map<String, String> params, int page, int pageSize, String sortField, int sortOrder) {
+        Sort sort = Sort.unsorted();
+        if (sortField != null && !sortField.isEmpty()) {
+            sort = Sort.by(Sort.Direction.fromString(sortOrder == 1 ? "ASC" : "DESC"), sortField);
+        }
 
         if (pageSize == 0) {
             // Récupérer tous les éléments
-            List<SpellHistory> allSpells = spellHistoryRepository.findAll(SpellHistorySpecification.filterByParams(params));
+            List<SpellHistory> allSpells = spellHistoryRepository.findAll(SpellHistorySpecification.filterByParams(params), sort);
             return new PagedResponse<>(
                     allSpells.stream().map(spellMapper::fromEntity).toList(),
                     0,
@@ -37,10 +42,9 @@ public class SpellHistoryServiceImpl implements ISpellHistoryService {
             );
         } else {
             // Pagination normale
-            Pageable pageable = PageRequest.of(page, pageSize);
+            Pageable pageable = PageRequest.of(page, pageSize, sort);
             Page<SpellHistory> pagedSpells = spellHistoryRepository.findAll(SpellHistorySpecification.filterByParams(params), pageable);
             return spellMapper.fromPageToHistory(pagedSpells);
         }
-
     }
 }

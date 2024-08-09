@@ -1,29 +1,39 @@
 package be.azz.java.ulfgarstoolbox.dal.specifications;
 
+import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetails;
 import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellHistory;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface SpellHistorySpecification {
 
     static Specification<SpellHistory> filterByParams(Map<String, String> params) {
-        Specification<SpellHistory> specification = Specification.where(null);
+        return (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
 
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            if (!entry.getValue().isBlank()) {
-                specification = specification.and(filterBy(entry.getKey(), entry.getValue()));
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                if (!entry.getValue().isBlank()) {
+                    Predicate predicate = filterBy(entry.getKey(), entry.getValue(), root, criteriaBuilder);
+                    if (predicate != null) {
+                        predicates.add(predicate);
+                    }
+                }
             }
-        }
 
-        return specification;
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
     }
 
-    static Specification<SpellHistory> filterBy(String key, String value) {
-        return (root, query, criteriaBuilder) ->
-                switch (key) {
+    static Predicate filterBy(String key, String value, Root<SpellHistory> root, CriteriaBuilder criteriaBuilder) {
+        return switch (key) {
 
                     case "user" ->
                             criteriaBuilder.equal(criteriaBuilder.lower(root.get("user")), value.toLowerCase());

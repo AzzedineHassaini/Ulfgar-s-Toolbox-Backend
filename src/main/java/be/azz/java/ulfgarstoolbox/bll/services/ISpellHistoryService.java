@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface ISpellHistoryService {
 
-    PagedResponse<SpellHistoryResponse> getSpellHistory(Map<String, String> params, int page, int pageSize);
+    PagedResponse<SpellHistoryResponse> getSpellHistory(Map<String, String> params, int page, int pageSize, String sortField, int sortOrder);
 
 }

@@ -45,9 +45,11 @@ public class AdminController {
     public ResponseEntity<PagedResponse<SpellHistoryResponse>> getSpellHistory(
             @RequestParam Map<String, String> params,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int pageSize)
+            @RequestParam(defaultValue = "20") int pageSize,
+            @RequestParam(required = false) String sortField,
+            @RequestParam int sortOrder)
     {
-        return ResponseEntity.ok(spellHistoryService.getSpellHistory(params, page, pageSize));
+        return ResponseEntity.ok(spellHistoryService.getSpellHistory(params, page, pageSize, sortField, sortOrder));
     }
 
 }
