@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(Constants.API_URL + "/classes")
@@ -29,6 +31,11 @@ public class CharacterClassController {
             @PathVariable(name = "id") Integer id)
     {
         return ResponseEntity.ok(characterClassService.findById(id));
+    }
+
+    @GetMapping("/caster")
+    public ResponseEntity<List<CharacterClassShortResponse>> getAllCasters(){
+        return ResponseEntity.ok(characterClassService.findAllCasterClasses());
     }
 
 }

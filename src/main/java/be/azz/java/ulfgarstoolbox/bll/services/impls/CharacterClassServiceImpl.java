@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CharacterClassServiceImpl implements ICharacterClassService {
@@ -33,9 +35,18 @@ public class CharacterClassServiceImpl implements ICharacterClassService {
 
     @Override
     public CharacterClassResponse findById(int id) {
-        return characterClassMapper.fromEntity(
+        return characterClassMapper.fromEntityToDetail(
                 characterClassRepository.findById(id).
                         orElseThrow(CharacterClassNotFoundException::new)
         );
+    }
+
+    @Override
+    public List<CharacterClassShortResponse> findAllCasterClasses() {
+        return characterClassRepository
+                .findAllSpellCastingClasses()
+                .stream()
+                .map(characterClassMapper::fromEntityToShort)
+                .toList();
     }
 }
