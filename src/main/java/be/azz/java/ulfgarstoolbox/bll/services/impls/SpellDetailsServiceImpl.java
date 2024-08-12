@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,9 +39,11 @@ public class SpellDetailsServiceImpl implements ISpellDetailsService {
 
     public PagedResponse<SpellShortResponse> getAllSpells(Map<String, String> params, int page, int pageSize) {
 
+        Sort sort = Sort.by(Sort.Direction.fromString("ASC"), "name");
+
         if (pageSize == 0) {
             // Récupérer tous les éléments
-            List<SpellDetails> allSpells = spellDetailsRepository.findAll(SpellSpecifications.filterByParams(params));
+            List<SpellDetails> allSpells = spellDetailsRepository.findAll(SpellSpecifications.filterByParams(params), sort);
             return new PagedResponse<>(
                     allSpells.stream().map(spellMapper::fromEntityToShort).toList(),
                     0,
@@ -49,7 +52,7 @@ public class SpellDetailsServiceImpl implements ISpellDetailsService {
             );
         } else {
             // Pagination normale
-            Pageable pageable = PageRequest.of(page, pageSize);
+            Pageable pageable = PageRequest.of(page, pageSize, sort);
             Page<SpellDetails> pagedSpells = spellDetailsRepository.findAll(SpellSpecifications.filterByParams(params), pageable);
             return spellMapper.fromPage(pagedSpells);
         }
