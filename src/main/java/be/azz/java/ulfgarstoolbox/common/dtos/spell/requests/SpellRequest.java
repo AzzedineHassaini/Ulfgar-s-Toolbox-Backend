@@ -7,9 +7,7 @@ import java.util.Map;
 
 public record SpellRequest(
 
-        @NotNull
         Map<Integer, Integer> classLevels,
-        @NotNull
         Map<Integer, Integer> domainLevels,
         @NotEmpty
         String name,
@@ -24,10 +22,10 @@ public record SpellRequest(
         String range,
         String effect,
         String duration,
-        String magicResistance,
+        String spellResistance,
         String targets,
         @NotNull
-        Integer ruleBookId,
+        Long ruleBookId,
         @NotNull
         Integer page
 

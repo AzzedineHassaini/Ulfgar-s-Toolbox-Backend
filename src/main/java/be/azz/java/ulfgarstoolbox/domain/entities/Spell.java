@@ -56,7 +56,7 @@ public class Spell {
     private String duration;
 
     @Column(name = "resistance_magie")
-    private String magicResistance;
+    private String spellResistance;
 
     @Column(name = "cibles")
     private String targets;

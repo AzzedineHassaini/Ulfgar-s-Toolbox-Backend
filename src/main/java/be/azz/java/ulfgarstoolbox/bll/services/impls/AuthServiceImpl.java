@@ -7,6 +7,7 @@ import be.azz.java.ulfgarstoolbox.common.dtos.auth.responses.UserTokenResponse;
 import be.azz.java.ulfgarstoolbox.common.exceptions.auth.LoginFailedException;
 import be.azz.java.ulfgarstoolbox.common.exceptions.auth.UserAlreadyExistsException;
 import be.azz.java.ulfgarstoolbox.config.utils.JwtUtils;
+import be.azz.java.ulfgarstoolbox.config.utils.MailUtils;
 import be.azz.java.ulfgarstoolbox.dal.repositories.UserRepository;
 import be.azz.java.ulfgarstoolbox.domain.entities.User;
 import be.azz.java.ulfgarstoolbox.domain.enums.Role;
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +28,8 @@ public class AuthServiceImpl implements UserDetailsService, IAuthService {
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
     private final UserDetailsChecker userDetailsChecker;
+    private final MailUtils mailUtils;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -58,6 +62,12 @@ public class AuthServiceImpl implements UserDetailsService, IAuthService {
         String encodedPassword = passwordEncoder.encode(request.password());
 
         User user = new User(request.email(), request.pseudo(), encodedPassword, role, request.image());
+
+        Context context = new Context();
+        context.setVariable("pseudo", user.getPseudo());
+        context.setVariable("email", user.getEmail());
+        userRepository.save(user);
+        mailUtils.sendEmail(user.getEmail(), "register", "Confirmation d'inscription", context);
 
         userRepository.save(user);
 

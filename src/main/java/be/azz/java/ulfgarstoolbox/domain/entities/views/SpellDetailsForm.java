@@ -10,8 +10,8 @@ import org.hibernate.annotations.Immutable;
 @Getter
 @Entity
 @Immutable
-@Table(name = "vue_spell_details")
-public class SpellDetails {
+@Table(name = "vue_spell_details_form")
+public class SpellDetailsForm {
     @Id
     @Column(name = "id")
     private Integer id;
@@ -50,7 +50,7 @@ public class SpellDetails {
     private String spellResistance;
 
     @Column(name = "id_bouquin")
-    private Long idRuleBook;
+    private Long ruleBookId;
 
     @Column(name = "page")
     private Integer page;

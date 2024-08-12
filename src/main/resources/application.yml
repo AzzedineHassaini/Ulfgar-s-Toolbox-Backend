@@ -21,6 +21,21 @@ spring:
     url: ${DATABASE_URL}
     user: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
+  mail:
+    host: ${MAIL_SMTP}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_AUTH}
+          starttls:
+            enable: ${MAIL_TLS_ENABLED}
+            required: ${MAIL_TLS_REQUIRED}
+          connectiontimeout: ${MAIL_CONNECTION_TIMEOUT}
+          timeout: ${MAIL_TIMEOUT}
+          writetimeout: ${MAIL_WRITE_TIMEOUT}
 
 server:
   port: ${SERVER_PORT}

@@ -3,12 +3,15 @@ package be.azz.java.ulfgarstoolbox.bll.services.impls;
 import be.azz.java.ulfgarstoolbox.bll.services.ISpellDetailsService;
 import be.azz.java.ulfgarstoolbox.common.dtos.PagedResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellDetailsResponse;
+import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.ViewSpellDetailsResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellShortResponse;
 import be.azz.java.ulfgarstoolbox.common.exceptions.spells.SpellNotFoundException;
 import be.azz.java.ulfgarstoolbox.common.mappers.SpellMapper;
+import be.azz.java.ulfgarstoolbox.dal.repositories.SpellDetailsFormRepository;
 import be.azz.java.ulfgarstoolbox.dal.repositories.SpellDetailsRepository;
 import be.azz.java.ulfgarstoolbox.dal.specifications.SpellSpecifications;
 import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetails;
+import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetailsForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,9 +26,10 @@ import java.util.Map;
 public class SpellDetailsServiceImpl implements ISpellDetailsService {
 
     private final SpellDetailsRepository spellDetailsRepository;
+    private final SpellDetailsFormRepository spellDetailsFormRepository;
     private final SpellMapper spellMapper;
 
-    public SpellDetailsResponse getSpellDetails(Integer sortId) {
+    public ViewSpellDetailsResponse getSpellDetails(Integer sortId) {
         SpellDetails result = spellDetailsRepository.findById(sortId)
                 .orElseThrow(SpellNotFoundException::new);
 
@@ -49,6 +53,14 @@ public class SpellDetailsServiceImpl implements ISpellDetailsService {
             Page<SpellDetails> pagedSpells = spellDetailsRepository.findAll(SpellSpecifications.filterByParams(params), pageable);
             return spellMapper.fromPage(pagedSpells);
         }
+    }
+
+    @Override
+    public SpellDetailsResponse getSpellDetailsForm(Integer sortId) {
+        SpellDetailsForm result = spellDetailsFormRepository.findById(sortId)
+                .orElseThrow(SpellNotFoundException::new);
+
+        return spellMapper.fromEntityToDetailsForm(result);
     }
 
 }
