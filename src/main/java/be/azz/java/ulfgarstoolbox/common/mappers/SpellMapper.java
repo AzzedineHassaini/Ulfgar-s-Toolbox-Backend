@@ -3,19 +3,30 @@ package be.azz.java.ulfgarstoolbox.common.mappers;
 import be.azz.java.ulfgarstoolbox.common.dtos.PagedResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.requests.SpellRequest;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellDetailsResponse;
+import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.ViewSpellDetailsResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellHistoryResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellShortResponse;
 import be.azz.java.ulfgarstoolbox.domain.entities.Spell;
 import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetails;
+import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellDetailsForm;
 import be.azz.java.ulfgarstoolbox.domain.entities.views.SpellHistory;
 import org.mapstruct.*;
 import org.springframework.data.domain.Page;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, imports = {SpellMapper.class})
 public interface SpellMapper {
 
     @Named("toDetails")
-    SpellDetailsResponse fromEntityToDetails(SpellDetails spellDetails);
+    ViewSpellDetailsResponse fromEntityToDetails(SpellDetails spellDetails);
+
+    @Named("toDetailsForm")
+    @Mapping(target = "classLevels", source = "classLevels", qualifiedByName = "stringToMap")
+    @Mapping(target = "domainLevels", source = "domainLevels", qualifiedByName = "stringToMap")
+    SpellDetailsResponse fromEntityToDetailsForm(SpellDetailsForm spellDetails);
 
     @Named("toShort")
     SpellShortResponse fromEntityToShort(SpellDetails spellDetails);
@@ -44,17 +55,16 @@ public interface SpellMapper {
             @MappingTarget Spell spell
     );
 
-    default String combineLevels(String classLevels, String domainLevels) {
-        StringBuilder combined = new StringBuilder();
-        if (classLevels != null && !classLevels.isEmpty()) {
-            combined.append(classLevels);
+    @Named("stringToMap")
+    default Map<Integer, Integer> stringToMap(String value) {
+        if (value == null || value.isEmpty()) {
+            return Map.of();
         }
-        if (domainLevels != null && !domainLevels.isEmpty()) {
-            if (!combined.isEmpty()) {
-                combined.append(";");
-            }
-            combined.append(domainLevels);
-        }
-        return combined.toString();
+        return Arrays.stream(value.split(";"))
+                .map(s -> s.split(":"))
+                .collect(Collectors.toMap(
+                        arr -> Integer.parseInt(arr[0]),
+                        arr -> Integer.parseInt(arr[1])
+                ));
     }
 }

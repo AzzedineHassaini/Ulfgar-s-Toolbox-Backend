@@ -3,9 +3,10 @@ package be.azz.java.ulfgarstoolbox.bll.services.impls;
 import be.azz.java.ulfgarstoolbox.bll.services.ISpellDetailsService;
 import be.azz.java.ulfgarstoolbox.bll.services.ISpellService;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.requests.SpellRequest;
-import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellDetailsResponse;
+import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.ViewSpellDetailsResponse;
 import be.azz.java.ulfgarstoolbox.common.exceptions.characterClass.CharacterClassNotFoundException;
 import be.azz.java.ulfgarstoolbox.common.exceptions.domain.DomainNotFoundException;
+import be.azz.java.ulfgarstoolbox.common.exceptions.ruleBook.RuleBookNotFoundException;
 import be.azz.java.ulfgarstoolbox.common.exceptions.spells.SpellNotFoundException;
 import be.azz.java.ulfgarstoolbox.common.mappers.SpellMapper;
 import be.azz.java.ulfgarstoolbox.config.utils.SQLSessionUtils;
@@ -29,24 +30,27 @@ public class SpellServiceImpl implements ISpellService {
     private final DomainRepository domainRepository;
     private final ISpellDetailsService spellDetailsService;
     private final SpellMapper spellMapper;
+    private final RuleBookRepository ruleBookRepository;
 
 
     @Override
     @Transactional
-    public SpellDetailsResponse addSpell(SpellRequest request) {
+    public ViewSpellDetailsResponse addSpell(SpellRequest request) {
         Long userId = getCurrentUserId();
         sqlSessionUtil.setCurrentUserId(userId);
 
         Spell newSpell = spellMapper.toEntity(request);
         newSpell.setSpellClass(getSpellClassFromRequest(request, newSpell));
         newSpell.setSpellDomains(getSpellDomainFromRequest(request, newSpell));
+        RuleBook ruleBook = ruleBookRepository.findById(request.ruleBookId()).orElseThrow(RuleBookNotFoundException::new);
+        newSpell.setRuleBook(ruleBook);
         newSpell = spellRepository.save(newSpell);
         return spellDetailsService.getSpellDetails(newSpell.getId());
     }
 
     @Override
     @Transactional
-    public SpellDetailsResponse updateSpell(Integer id, SpellRequest request) {
+    public ViewSpellDetailsResponse updateSpell(Integer id, SpellRequest request) {
         Long userId = getCurrentUserId();
         sqlSessionUtil.setCurrentUserId(userId);
 
@@ -59,21 +63,25 @@ public class SpellServiceImpl implements ISpellService {
         // Mettre à jour spellDomains
         updateSpellDomains(spellToUpdate, request);
 
+        // Mettre à jour le ruleBook
+        RuleBook ruleBook = ruleBookRepository.findById(request.ruleBookId()).orElseThrow(RuleBookNotFoundException::new);
+        spellToUpdate.setRuleBook(ruleBook);
+
         spellToUpdate = spellRepository.saveAndFlush(spellToUpdate);
         return spellDetailsService.getSpellDetails(spellToUpdate.getId());
     }
 
     @Override
     @Transactional
-    public SpellDetailsResponse deleteSpell(Integer id) {
+    public ViewSpellDetailsResponse deleteSpell(Integer id) {
         Long userId = getCurrentUserId();
         sqlSessionUtil.setCurrentUserId(userId);
 
         Spell spell = spellRepository.findById(id).orElseThrow(SpellNotFoundException::new);
-        SpellDetailsResponse spellDetailsResponse = spellDetailsService.getSpellDetails(id);
+        ViewSpellDetailsResponse viewSpellDetailsResponse = spellDetailsService.getSpellDetails(id);
         // Les entités de SpellClass et SpellDomain liés à ce spell seront supprimées par cascade
         spellRepository.delete(spell);
-        return spellDetailsResponse;
+        return viewSpellDetailsResponse;
     }
 
     private void updateSpellClass(Spell spell, SpellRequest request) {

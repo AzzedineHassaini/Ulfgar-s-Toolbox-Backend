@@ -30,7 +30,7 @@ CREATE TRIGGER sort_insert_audit
     FOR EACH ROW
 BEGIN
     INSERT INTO sort_audit (sort_id, action, nouvelle_valeur, user_id)
-    VALUES (NEW.id, 'INSERT', CONCAT_WS(',', NEW.nom, NEW.ecole, NEW.complement_ecole), @current_user_id);
+    VALUES (NEW.id, 'INSERT', NEW.nom, @current_user_id);
 END;
 
 -- Création du trigger pour les update
@@ -139,7 +139,7 @@ CREATE TRIGGER sort_delete_audit
     FOR EACH ROW
 BEGIN
     INSERT INTO sort_audit (sort_id, action, ancienne_valeur, user_id)
-    VALUES (OLD.id, 'DELETE', CONCAT_WS(',', OLD.nom, OLD.ecole, OLD.complement_ecole), @current_user_id);
+    VALUES (OLD.id, 'DELETE', OLD.nom, @current_user_id);
 END;
 
 -- Triggers pour sortclasse

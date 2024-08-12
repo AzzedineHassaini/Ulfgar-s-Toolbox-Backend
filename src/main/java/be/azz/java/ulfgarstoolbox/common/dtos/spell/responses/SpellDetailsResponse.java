@@ -1,8 +1,7 @@
 package be.azz.java.ulfgarstoolbox.common.dtos.spell.responses;
 
-import lombok.Builder;
+import java.util.Map;
 
-@Builder
 public record SpellDetailsResponse(
         Integer id,
         String name,
@@ -17,12 +16,12 @@ public record SpellDetailsResponse(
         String duration,
         String spellResistance,
         String components,
-        Long idRuleBook,
+        Long ruleBookId,
         Integer page,
         String bookName,
         String bookShortName,
-        String classLevels,
-        String domainLevels,
+        Map<Integer, Integer> classLevels,
+        Map<Integer, Integer> domainLevels,
         String schoolImage
 ) {
 }
