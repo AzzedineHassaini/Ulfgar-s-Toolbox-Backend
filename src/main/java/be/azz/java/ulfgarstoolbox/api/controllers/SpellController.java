@@ -5,6 +5,7 @@ import be.azz.java.ulfgarstoolbox.bll.services.ISpellService;
 import be.azz.java.ulfgarstoolbox.common.dtos.PagedResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.requests.SpellRequest;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellDetailsResponse;
+import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.ViewSpellDetailsResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellShortResponse;
 import be.azz.java.ulfgarstoolbox.config.utils.Constants;
 import jakarta.validation.Valid;
@@ -33,15 +34,22 @@ public class SpellController {
     }
 
     @GetMapping("/{id:\\d+}")
-    public ResponseEntity<SpellDetailsResponse> getSpellDetails(
+    public ResponseEntity<ViewSpellDetailsResponse> getSpellDetails(
             @PathVariable Integer id
     ) {
         return ResponseEntity.ok(spellDetailsService.getSpellDetails(id));
     }
 
+    @GetMapping("/form/{id:\\d+}")
+    public ResponseEntity<SpellDetailsResponse> getSpellDetailsForm(
+            @PathVariable Integer id
+    ) {
+        return ResponseEntity.ok(spellDetailsService.getSpellDetailsForm(id));
+    }
+
     @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR')")
     @PostMapping()
-    public ResponseEntity<SpellDetailsResponse> createSpell(
+    public ResponseEntity<ViewSpellDetailsResponse> createSpell(
             @RequestBody @Valid SpellRequest spellRequest
     ){
         return ResponseEntity.ok(spellService.addSpell(spellRequest));
@@ -49,7 +57,7 @@ public class SpellController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR')")
     @PutMapping("/{id:\\d+}")
-    public ResponseEntity<SpellDetailsResponse> updateSpell(
+    public ResponseEntity<ViewSpellDetailsResponse> updateSpell(
             @PathVariable Integer id,
             @RequestBody @Valid SpellRequest spellRequest
     ){
@@ -58,7 +66,7 @@ public class SpellController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN','CONTRIBUTOR')")
     @DeleteMapping("/{id:\\d+}")
-    public ResponseEntity<SpellDetailsResponse> deleteSpell(
+    public ResponseEntity<ViewSpellDetailsResponse> deleteSpell(
             @PathVariable Integer id
     ){
         return ResponseEntity.ok(spellService.deleteSpell(id));
