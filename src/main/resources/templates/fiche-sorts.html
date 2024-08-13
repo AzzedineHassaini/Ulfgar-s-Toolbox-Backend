@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="'Fiche de sort - '+${type}+' : '+${classOrDomain}"></title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1 { text-align: center; }
+        h2 { margin-top: 20px; }
+        h3 { margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 5px; text-align: left; }
+        .checkbox { width: 20px; height: 20px; }
+        .empty-row td { height: 30px; }
+    </style>
+</head>
+<body>
+<h1 th:text="'Fiche de sort - '+${type}+' : '+${classOrDomain}"></h1>
+
+<div th:each="level : ${spellsByLevel}">
+    <h2 th:text="'Niveau ' + ${level.key}"></h2>
+
+    <div th:each="school : ${level.value}">
+        <h3 th:text="${school.key}"></h3>
+        <table>
+            <tr>
+                <th>Connu</th>
+                <th>Préparé</th>
+                <th>Nom du sort</th>
+            </tr>
+            <tr th:each="spell : ${school.value}">
+                <td><input type="checkbox" class="checkbox"/></td>
+                <td><input type="checkbox" class="checkbox"/></td>
+                <td th:text="${spell.name}"></td>
+            </tr>
+            <!-- 3 lignes vides pour les ajouts manuels -->
+            <tr class="empty-row" th:each="i : ${#numbers.sequence(1, 3)}">
+                <td><input type="checkbox" class="checkbox"/></td>
+                <td><input type="checkbox" class="checkbox"/></td>
+                <td>_______________________________________</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

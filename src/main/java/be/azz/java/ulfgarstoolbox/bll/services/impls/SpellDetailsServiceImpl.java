@@ -3,6 +3,7 @@ package be.azz.java.ulfgarstoolbox.bll.services.impls;
 import be.azz.java.ulfgarstoolbox.bll.services.ISpellDetailsService;
 import be.azz.java.ulfgarstoolbox.common.dtos.PagedResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellDetailsResponse;
+import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellPrintableResponse;
 import be.azz.java.ulfgarstoolbox.common.dtos.spell.responses.SpellShortResponse;
 import be.azz.java.ulfgarstoolbox.common.exceptions.spells.SpellNotFoundException;
 import be.azz.java.ulfgarstoolbox.common.mappers.SpellMapper;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +52,18 @@ public class SpellDetailsServiceImpl implements ISpellDetailsService {
             Page<SpellDetails> pagedSpells = spellDetailsRepository.findAll(SpellSpecifications.filterByParams(params), pageable);
             return spellMapper.fromPage(pagedSpells);
         }
+    }
+
+    public List<SpellPrintableResponse> getAllPrintableSpells(String classOrDomain, String type){
+        List<SpellPrintableResponse> result;
+        Map<String, String> params = new HashMap<>();
+        params.put(type, classOrDomain);
+
+        List<SpellDetails> allSpells = spellDetailsRepository.findAll(SpellSpecifications.filterByParams(params));
+
+        result = allSpells.stream().map(spellDetails -> SpellPrintableResponse.fromEntity(spellDetails, classOrDomain, type)).toList();
+
+        return result;
     }
 
 }
